@@ -1,6 +1,6 @@
 <?php
 define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());//函数取得 PHP 环境配置的变量
-
+date_default_timezone_set('PRC'); 
 if($_SERVER["SERVER_PORT"]==443)  $http="https"; else  $http="http";
 
 if (!defined('HTTP')) define('HTTP', $http);
@@ -21,7 +21,7 @@ if (!defined('CDN_ROOT'))
 	}
 }
 if (!defined('MD5_pass')) define('MD5_pass', 'milanoo_');
-if (!defined('SESSION_PREFIX')) define('SESSION_PREFIX', md5('milanoo_session_'));//session加密字符
+if (!defined('SESSION_PREFIX')) define('SESSION_PREFIX', md5('sunny_session_'));//session加密字符
 if (!defined('FileUp')) define('FileUp', ROOT_PATH . 'upload');//上传文件目录
 if (!defined('CDN_IMAGE_URL')) define('CDN_IMAGE_URL', CDN_ROOT);//新图片地址image
 if (!defined('CDN_JAVASCRIPT_URL')) define('CDN_JAVASCRIPT_URL', ROOT_URL.'ued/javascript/');//新JS文件地址
@@ -40,7 +40,7 @@ if (!defined('DATA_CACHE_ROOT_PATH')) define('DATA_CACHE_ROOT_PATH', ROOT_PATH .
  * 调试模式开关.调试模式下会输出所有错误信息
  * @var boolean
  */
-define('DEBUG_MODE',1);
+define('DEBUG_MODE',0);
 /**
  * 调试级别.
  * @var INT 0,输出所有调试信息.<br /> 

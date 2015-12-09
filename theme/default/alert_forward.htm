@@ -1,0 +1,40 @@
+{-include file="header.html"-}
+
+  <link href="{-$media-}/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="{-$media-}/css/bootstrap-responsive.min.css" rel="stylesheet" />
+ <link href="{-$media-}/css/font-awesome.css" rel="stylesheet" />
+ <link href="{-$media-}/css/adminia.css" rel="stylesheet" /> 
+  <link href="{-$media-}/css/adminia-responsive.css" rel="stylesheet" /> 
+  <link href="{-$media-}/css/pages/faq.css" rel="stylesheet" /> 
+
+
+<div id="content" class="msg_box">
+	<div class="msg_icon">
+		<p><a href='index.php?module=index&action=index'>
+			<i>首页</i>
+		</a></p>
+		{-if $msg-}<p>{-$msg-}</p>{-/if-}
+		{-if $url-}
+			<p><a href="{-$url-}">跳转</a></p>
+		{-else-}
+			<p>
+			<a href="javascript:history.back();">返回</a>
+			</p>
+		{-/if-}
+	</div>
+
+</div>
+
+
+{-if $timeout > 0 -}
+ <script>setTimeout(
+		 {-if $url-}
+	  		"window.location='{-$url-}'"
+	  	 {-else-}
+	  		"history.back()"
+	 	 {-/if-}
+	  	, {-$timeout-});
+ </script>
+{-/if-}
+
+{-include file="footer.html"-}

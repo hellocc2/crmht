@@ -12,7 +12,7 @@ if(!defined('CONFIG_PATH'))
 //session加密字符
 if (!defined('SESSION_PREFIX'))
 {
-    define('SESSION_PREFIX', md5('milanoo_session_'));
+    define('SESSION_PREFIX', md5('sunny_session_'));
 } 
 
 //缓存根目录

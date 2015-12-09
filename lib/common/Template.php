@@ -30,12 +30,7 @@ class Template{
 		{
 			define('IMAGE_URL', CDN_IMAGE_URL .'image/');//模板图片目录的url地址
 		}
-        
-        if (!defined('MEDIA_URL'))
-		{
-			define('MEDIA_URL', CDN_IMAGE_URL .'media');//模板图片目录的url地址
-		}
-		
+  	
 		if (!defined('THEME_LEFT_DELIMITER')) define('THEME_LEFT_DELIMITER', '{-');
 		if (!defined('THEME_RIGHT_DELIMITER')) define('THEME_RIGHT_DELIMITER', '-}');//模板语法标签
 
@@ -54,7 +49,7 @@ class Template{
 		$tpl->assign('javascript_url', JAVASCRIPT_URL);//	en(CDN_JAVASCRIPT_URL)
         $tpl->assign('popup_url', POPUP_URL);
 		$tpl->assign('image_url', IMAGE_URL);	
-        $tpl->assign('media_url', MEDIA_URL);
+        $tpl->assign('media', MEDIA_URL);
 		$tpl->assign('image_global_url', IMAGE_GLOBAL_URL);	
 		$tpl->assign('theme_url',ROOT_URL."theme/default");
 		$tpl->assign('themeRoot', THEME);

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>添加行情</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />    
+    
+    <link href="{-$media-}/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{-$media-}/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="{-$media-}/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
+    <link href="{-$media-}/css/font-awesome.css" rel="stylesheet" />
+    
+    <link href="{-$media-}/css/adminia.css" rel="stylesheet" /> 
+    <link href="{-$media-}/css/adminia-responsive.css" rel="stylesheet" /> 
+    
+    <link href="{-$media-}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />  
+    <link href="{-$media-}/css/pages/plans.css" rel="stylesheet" /> 
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<body>
+	
+<div class="navbar navbar-fixed-top">
+	
+	<div class="navbar-inner">
+		
+		{-html_headnav-}<!-- /container -->
+		
+	</div> <!-- /navbar-inner -->
+	
+</div> <!-- /navbar -->
+
+
+
+
+<div id="content">
+	
+	<div class="container">
+		
+		<div class="row">
+			
+			<div class="span3">
+				
+				{-html_account-}<!-- /account-container -->
+				
+				<hr />
+				
+				{-html_siderbar-}		
+				
+				
+				<hr />
+				
+								
+				<br />
+		
+			</div> <!-- /span3 -->
+			
+			
+			
+			<div class="span9">
+				
+				<h1 class="page-title">
+					<i class="icon-th-large"></i>
+					添加行情				
+				</h1>
+				
+				<div class="row">
+					
+					<div class="span9">
+				
+						<div class="widget">
+							
+							<div class="widget-header">
+								<h3>{-$time-}</h3>
+							</div> <!-- /widget-header -->
+									
+						<div class="widget-content">
+								
+								
+								
+						<div class="tabbable">
+											
+						<br />
+						
+							<div class="tab-content">
+								<div class="tab-pane active" id="1">
+									<fieldset>
+										<form  method="post" action="index.php?module=history&action=Add" target="main" name="form_multi_upload" enctype="multipart/form-data" id="form_multi_upload">
+										<input type="hidden" name="act" value='multi_upload'>
+										<div class="control-group">											
+											<label class="control-label" name='multi_upload'>批量上传</label>
+											<div class="controls">
+												<input type="file" name="filename" size='30' id="filename">
+												<input type="button" class="btn btn-primary savebtn" value="批量上传">
+											</div> <!-- /controls -->				
+										</div> 
+										</form>	
+									</fieldset>
+								</div>
+							</div>
+						</div>
+						</div> <!-- /widget-content -->
+						</div> <!-- /widget -->
+					</div> <!-- /span9 -->
+				</div> <!-- /row -->
+			</div> <!-- /span9 -->
+			
+			
+		</div> <!-- /row -->
+		
+	</div> <!-- /container -->
+	
+</div> <!-- /content -->
+					
+	
+<div id="footer">
+	
+	<div class="container">				
+		<hr />
+		<p>&copy; CAICAI2015</p>
+	</div> <!-- /container -->
+	
+</div> <!-- /footer -->
+
+
+    
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{-$media-}/js/jquery-1.7.2.min.js"></script>
+<script src="{-$media-}/js/bootstrap.js"></script>
+<script src="{-$media-}/js/bootstrap-datetimepicker.js"></script>
+<script src="{-$media-}/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="{-$media-}/js/assets/global/plugins/jquery-validation/js/jquery.validate.min.js?v=1.0.0"></script>
+<script src="{-$media-}/js/assets/global/plugins/jquery-form/jquery-form.min.js"></script>
+<script src="{-$media-}/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script>
+$(document).ready(function(){
+
+	$("#form_multi_upload").on('click', '.savebtn', function() {
+		if ($('#form_multi_upload').valid()) {
+			$('#form_multi_upload').submit();
+		}
+	});
+
+ });       
+</script>
+
+  </body>
+</html>

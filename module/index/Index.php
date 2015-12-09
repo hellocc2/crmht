@@ -7,8 +7,10 @@ class Index extends \Lib\common\Application {
 	public function __construct() {
 		$tpl = \Lib\common\Template::getSmarty ();
         $db = \Lib\common\Db::get_db();
-       
-        $tpl->display ( 'index.htm' );
+		$action=R::getParams ('action');
+		
+		$tpl->assign('action',$action);
+        $tpl->display ('index.html');
         
 
 	}

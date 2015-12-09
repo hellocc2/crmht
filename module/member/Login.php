@@ -1,52 +1,43 @@
 <?php
-
 namespace Module\member;
-
 use Helper\RequestUtil as R;
-//use Helper\ResponseUtil as rew;
 
 /**
- * 会员注册
- *
- * @author wujianjun<wujianjun127@163.com>
- *         @sinc 2012-05-15
- * @param
- *        	int
- * @param
- *        	int
+ * 会员登录
+ * @author jiangcai
  */
+
 class Login extends \Lib\common\Application {
 	public function __construct() {
-		$client=\Helper\CheckLogin::sso();
 		$tpl = \Lib\common\Template::getSmarty ();
-		$params_all = R::getParams ();
-		
-		if (!empty ( $client['uid'] )) {
+		$username = R::getParams ('username');
+		$password = R::getParams ('password');
+		//var_dump(R::getParams());exit;
+		if (!empty ($username)) {
 
-			$db = \Lib\common\Db::get_db ( 'milanoo' );
+			$db = \Lib\common\Db::get_db ();
+			$password=md5($password);
 
-			$uid = $client['uid'];
-			if ($uid) {
-// 				$sql = "SELECT * FROM `milanoo_admin_user` au, milanoo_admin_competence ac WHERE ac.id IN (au.competence_id) AND uid = {$uid} AND FIND_IN_SET  ('1351', competence_menu)";
-// 				$row = $db->getrow ( $sql );
-// 				if (empty ( $row )) {
-// 					$tpl->assign ( 'error', '用户名密码验证成功，但是你没有查看 MA 的权限请找相关人员开通' );
-// 					$tpl->display ( 'member_login.htm' );
-// 					exit ();
-// 				}
-				//var_dump($row['realname']);exit;
-				$_SESSION [SESSION_PREFIX . "MemberId"] = $client['uid'];
+			if ($username&&$password) {
+ 				$sql = "SELECT * FROM `rmb_money_member` WHERE member_name='".$username."' AND member_password='".$password."'";
+				$row = $db->getRow($sql);
+				//echo '<pre/>';var_dump($row);exit;
+ 				if (empty($row)){
+ 					$tpl->assign ( 'error', '登录失败，请重新登陆' );
+ 					$tpl->display ( 'member_login.html' );
+					exit ();
+ 				}
 				
-				// setcookie('auth', '1', time() + 60 * 60 * 24 * 30);
+				$_SESSION [SESSION_PREFIX . "MemberId"] = $row['id'];
 				header ( "Location: index.php" );
 				exit;
 			} else {
-				$tpl->assign ( 'error', '登录失败，请使用米兰账号登陆' );
+				$tpl->assign ( 'error', '登录失败，请重新登陆' );
 				$tpl->display ( 'member_login.htm' );
 				exit ();
 			}
 		}
-		$tpl->display ( 'member_login.htm' );
+		$tpl->display ( 'member_login.html' );
 	}
 }
 

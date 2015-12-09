@@ -117,6 +117,421 @@ class ResponseUtil{
     					$url.=$seo;
     					if($action!="index" && $action!="") $url.=$action.$html;
     					break;
+    				case 'Brand':
+    					$url .="Brand/";
+    					if($action="item"&&$Garray['bid']){
+    						if($Garray['bname']){
+    							$url.=$Garray['bname']."-";
+    						}
+    						$url.="b{$Garray['bid']}/";
+    						if($Garray['class']) {
+    							$url.=$seo."c".$Garray['class']."/";
+    						} elseif(isset($Garray['class'])){
+    								
+    							$url.="All-c0/";
+    						}
+    						if($Garray['page']) {
+    							$url.=$Garray['page'].".html";
+    						}
+    					}
+    					break;
+    				case 'Boutiques':
+    					$url .="Boutiques/";
+    					if($action="item"&&$Garray['bid']){
+    						if($Garray['bname']){
+    							$url.=preg_replace('# +#','-',$Garray['bname'])."-";
+    						}
+    						$url.="b{$Garray['bid']}";
+    						if($Garray['class']) {
+    							$url.='/'.$seo."c".$Garray['class']."/";
+    						} elseif(isset($Garray['class'])){
+    								
+    							$url.="/All-c0/";
+    						}
+    						if($Garray['page']) {
+    							$url.=$Garray['page'].".html";
+    						}
+    					}
+    					break;
+    				case 'thing':
+    					switch ($action)
+    					{
+    						case 'glist':
+    							if (!empty($Garray['textname']) && !empty($Garray['sortlist'])){ 							
+    								$Garray['textname']=preg_replace( $patterns,$replace,$Garray['textname']);
+    								$url.="producttags/".$Garray['sortlist']."-".$Garray['textname'];
+    							}
+    							elseif(empty($Garray['class'])) $url.="search";
+    							else
+    							{
+    								$url.=$seo;
+    								$url.="c".$Garray['class'];
+    							}
+    							$url2="";
+    							if(is_array($Garray))
+    							{    		
+    								ksort($Garray);
+    								foreach($Garray as $kid=>$key )
+    								{
+    									if($kid!="class" && $kid!="page" && $kid!="textname" && $kid!="sortlist")
+    									{ 							
+    										if($url2) $url2.="-";
+    										if(is_array($key))
+    										{
+    											sort($key);
+    										   $url3 = array();
+    										   foreach ($key as $key_i) 
+    										   {
+    										       $url3[] = $kid.'-'. String::escQuotes($key_i);
+    										   }   
+    										   $url2 .= implode('-', $url3);
+    										}
+    										else 
+    										{
+    										    $url2.=$kid."-". String::escQuotes($key);
+    										}
+    									}
+    								}
+    							}
+    							if($url2) $url.="/".$url2;
+    							if(!empty($Garray['page']))
+    							{
+    								//add by chengjun 2012-04-16  如果页数=1，则url中不再显示页码
+    								if($Garray['page']==1){
+    									if(!$url2) $url.='';else $url.=$html;
+    								}else{
+    									if(!$url2) $url.="/"; else $url.="-";
+    									if($Garray['page']!=0) $url.=$Garray['page'].$html;
+    								}
+    							}
+    							elseif($url2) $url.=$html;
+    							break;
+    						case 'item':
+    							$url.=$seo;
+    							$url.="p".$Garray['id'];
+    							if(!empty($Garray['page'])&&$Garray['page']!=1) $url.="-page-".$Garray['page'];
+    							$url.=$html;
+    							break;
+    						case '':
+    							$url.="seeall".$html;
+    							break;
+    						case 'comments':
+    							if(SELLER_LANG == 'fr-fr'){
+    								$url .= 'commentaires';
+    							}elseif(SELLER_LANG == 'es-sp'){
+    								$url .= 'comentarios';
+    							}elseif(SELLER_LANG == 'de-ge'){
+    								$url .= 'Kommentaren';
+    							}elseif(SELLER_LANG == 'pt-pt'){
+    								$url .= 'comentario';
+    							}elseif(SELLER_LANG == 'it-it'){
+    								$url .= 'recesioni';
+    							}else{
+    								$url .= 'reviews';
+    							}
+    							$url.='/'.$seo;
+    							$url.="t".$Garray['id'];
+    							if(!empty($Garray['act'])) $url.="-act-".$Garray['act'];
+    							if(!empty($Garray['typeid'])) $url.="-typeid-".$Garray['typeid'];
+    							if(!empty($Garray['page'])&&$Garray['page']!=1) $url.="-page-".$Garray['page'];
+    							$url.=$html;
+    						break;
+    						default:
+    							$url.=$module.'/'.$action."-".$params.$html;
+    					}
+    					break;
+    				case 'promotions':
+    					switch($action){
+							case 'Spotlight':
+								if($style=='breadcrumb'){
+									$url .= 'promotions/spotlight';
+								}else{			
+									$url .= 'hot/';
+									if(!empty($seo)){
+										$url .= $seo;
+									}
+									if(!empty($Garray['c'])){
+										$url .= 'c'.$Garray['c'];
+									}else{
+										$url .= $html;
+										break;
+									}
+								}
+								$url2 = '';
+								//print_r($Garray);exit;
+								foreach($Garray as $k=>$v){
+									if($k!='page' && $k!='c'){
+										if($url2) $url2.="-";
+    										if(is_array($v))
+    										{
+    										   $url3 = array();
+    										   foreach ($v as $key_i) 
+    										   {
+    										       $url3[] = $k.'-'. String::escQuotes($key_i);
+    										   }   
+    										   $url2 .= implode('-', $url3);
+    										}
+    										else 
+    										{
+    										    $url2.=$k."-". String::escQuotes($v);
+    										}
+									}
+								}
+								if($url2){
+									$url .= '/'.$url2;
+								}
+								if(!empty($Garray['page']))
+    							{
+    								if($Garray['page']==1){
+    									if(!$url2) $url.='';
+    								}else{
+    									if(!$url2) $url.="/"; else $url.="-";
+    									if($Garray['page']!=0) $url.=$Garray['page'];
+    								}
+    							}
+    							$url.=$html;
+								
+								
+							break;
+							case 'Newarrivals':
+								$url .= 'new/';
+								if(!empty($seo)){
+									$url .= $seo;
+								}	
+								if(!empty($Garray['c'])){
+									$url .='c'.$Garray['c'];
+								}
+								$url2 = '';
+								//print_r($Garray);exit;
+								foreach($Garray as $k=>$v){
+									if($k!='page' && $k!='c'){
+										if($url2) $url2.="-";
+    										if(is_array($v))
+    										{
+    										   $url3 = array();
+    										   foreach ($v as $key_i) 
+    										   {
+    										       $url3[] = $k.'-'. String::escQuotes($key_i);
+    										   }   
+    										   $url2 .= implode('-', $url3);
+    										}
+    										else 
+    										{
+    										    $url2.=$k."-". String::escQuotes($v);
+    										}
+									}
+								}
+								if($url2){
+									$url .= '/'.$url2;
+								}
+								if(!empty($Garray['page']))
+    							{
+    								if($Garray['page']==1){
+    									if(!$url2) $url.='';
+    								}else{
+    									if(!$url2) $url.="/"; else $url.="-";
+    									if($Garray['page']!=0) $url.=$Garray['page'];
+    								}
+    							}
+    							$url.=$html;
+							break;
+							default:
+								if($seo) $seo.="module-";
+		    					$url.=$module.'/'.$seo.$action;
+		    					if(($seo!="" || $action!="")&&$params!="") $url.='-';
+		    					if($params!="") $url.=$params.$html;
+		    					elseif($action!="") $url.=$html; 
+							break;
+						}
+						break;
+    				case 'producttags':
+    					if(!empty($Garray['index'])){
+    						$url.=$module."/index-".$Garray['index'].$html;
+    					}else{
+    						$url.=$module.'/'.$Garray['sort']."/";
+    						if(!empty($Garray['page']))
+    						{
+    							$url.=$Garray['page'].$html;
+    						}
+    					}
+    					break;
+    				case 'gs':
+    					if(!empty($Garray['urlname'])){
+    						$url .= 'gs/'.$Garray['urlname'];
+    						$url2="";
+    						if(is_array($Garray))
+    						{    
+    							ksort($Garray);
+    							foreach($Garray as $kid=>$key )
+    							{
+    								if($kid!="urlname" && $kid!="page")
+    								{ 	
+    									if($key!=''){						
+    										if($url2) $url2.="-";
+    										if(is_array($key))
+    										{
+    											sort($key);
+    										   $url3 = array();
+    										   foreach ($key as $key_i) 
+    										   {
+    										       $url3[] = $kid.'-'. String::escQuotes($key_i);
+    										   }   
+    										   $url2 .= implode('-', $url3);
+    										}
+    										else 
+    										{
+    										    $url2.=$kid."-". String::escQuotes($key);
+    										}
+    									}
+   									}
+   								}
+    						}
+    						
+    						if($url2) $url.="/".$url2;
+    						if(!empty($Garray['page'])){
+    							if($Garray['page']==1){
+    								if(!$url2) $url.='';else $url.=$html;
+    							}else{
+    								if(!$url2) $url.="/"; else $url.="-";
+    								if($Garray['page']!=0) $url.=$Garray['page'].$html;
+    							}
+    						}elseif($url2) $url.=$html;
+    					}else{
+    						$url .= '';
+    					}
+    					break;
+    				case 'review':
+    					if(SELLER_LANG == 'fr-fr'){
+    						$url .= 'commentaires';
+    					}elseif(SELLER_LANG == 'es-sp'){
+    						$url .= 'comentarios';
+    					}elseif(SELLER_LANG == 'de-ge'){
+    						$url .= 'Kommentaren';
+    					}elseif(SELLER_LANG == 'pt-pt'){
+    						$url .= 'comentario';
+    					}elseif(SELLER_LANG == 'it-it'){
+    						$url .= 'recesioni';
+    					}else{
+    						$url .= 'reviews';
+    					}
+    					if($action=='glist'){
+    						if(!empty($seo)){
+    							$url .= '/'.$seo;
+    						}else{
+    							$url .= '/';
+    						}
+    						$url .=  'c-'.$Garray['id'];
+    						$url2 = '';
+    						foreach($Garray as $kid=>$key){
+    							if($kid!='id' && $kid!='page'){
+    							if($url2) $url2.="-";
+    								if(is_array($key))
+    								{
+    								   $url3 = array();
+    								   foreach ($key as $key_i) 
+    								   {
+    								       $url3[] = $kid.'-'. String::escQuotes($key_i);
+    								   }   
+    								   $url2 .= implode('-', $url3);
+    								}
+    								else 
+    								{
+   									    $url2.=$kid."-". String::escQuotes($key);
+ 									}
+    							}
+    						}
+    						if($url2) $url.="/".$url2;
+    						if(!empty($Garray['page'])){
+    							if(!$url2) $url.="/"; else $url.="-";
+    							if($Garray['page']!=0) $url.=$Garray['page'].$html;
+    						}elseif($url2) $url.=$html;
+    					}
+    					break;
+    				case 'story':
+    					$url .= 'testimonials';
+    					if(!empty($seo)){
+    						$seo = urlencode($seo);
+    					}
+    					if($action=='show'){
+    						if(!empty($seo)){
+    							$url .= '/'.$seo;
+    						}else{
+    							$url .= '/';
+    						}
+    						$url .=  'm'.$Garray['id'];
+    					}elseif ($action=='add'){
+    						$url .= '/add';
+    					}
+    					
+    					$url2 = '';
+    					if(!empty($Garray)){
+    						foreach($Garray as $kid=>$key){
+    							if($kid!='page' && $kid!='id'){
+    								if($url2) $url2.="-";
+    								if(is_array($key))
+    								{
+    									$url3 = array();
+    									foreach ($key as $key_i)
+    									{
+    										$key_i = urlencode($key_i);
+    										$url3[] = $kid.'-'. String::escQuotes($key_i);
+    									}
+    									$url2 .= implode('-', $url3);
+    								}
+    								else
+    								{
+    									$key = urlencode($key);
+    									$url2.=$kid."-". String::escQuotes($key);
+    								}
+    							}
+    						}
+    					}
+    					if($url2) $url.="/".$url2;
+    					if(!empty($Garray['page'])){
+    						if(!$url2) $url.="/"; else $url.="-";
+    						if($Garray['page']!=0) $url.=$Garray['page'].$html;
+    					}elseif($url2 || $action=='show' || $action=='add') $url.=$html;
+    					break;
+    				case 'sale':
+    					if($Garray['promotiontype']=='clearance'){
+    						$url.='clearance/';
+    					}else{
+    						$url.='sale/';
+    					}
+    					if(!empty($Garray['class'])){
+    						$url.=$seo;
+    						$url.="c".$Garray['class'];
+    						$url2 = '';
+    						foreach($Garray as $kid=>$key ){
+    							if($kid!="class" && $kid!="page" && $kid!="promotiontype"){ 							
+    								if($url2) $url2.="-";
+    								if(is_array($key)){
+    									$url3 = array();
+    									foreach ($key as $key_i){
+    										 $url3[] = $kid.'-'. String::escQuotes($key_i);
+    									}   
+    										 $url2 .= implode('-', $url3);
+    								}else {
+    										$url2.=$kid."-". String::escQuotes($key);
+    								}
+    							}
+    						}
+    						
+    						if($url2) $url.="/".$url2;
+    						if(!empty($Garray['page']))
+    						{
+    							if($Garray['page']==1){
+    								if(!$url2) $url.='';else $url.=$html;
+    							}else{
+    								if(!$url2) $url.="/"; else $url.="-";
+    								if($Garray['page']!=0) $url.=$Garray['page'].$html;
+    							}
+    						}
+    						elseif($url2) $url.=$html;
+    					}else{
+    						$url .= 'index.html';
+    					}
+    					break;
     				default:
     					if($seo) $seo.="module-";
     					$url.=$module.'/'.$seo.$action;

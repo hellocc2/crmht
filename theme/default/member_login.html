@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>用户登录</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />    
+    
+    <link href="{-$media-}/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{-$media-}/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    
+    
+    <link href="{-$media-}/css/font-awesome.css" rel="stylesheet" />
+    
+    <link href="{-$media-}/css/adminia.css" rel="stylesheet" /> 
+    <link href="{-$media-}/css/adminia-responsive.css" rel="stylesheet" /> 
+    
+    <link href="{-$media-}/css/pages/login.css" rel="stylesheet" /> 
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<body>
+	
+<div class="navbar navbar-fixed-top">
+	
+	<div class="navbar-inner">
+		
+		
+	</div> <!-- /navbar-inner -->
+	
+</div> <!-- /navbar -->
+
+
+<div id="login-container">
+	
+	
+	<div id="login-header">
+		
+		<h3>登录 {-if $error-}(<span style="color:#e16c2c">{-$error-}</span>){-/if-}</h3>
+		
+	</div> <!-- /login-header -->
+	
+	<div id="login-content" class="clearfix">
+	
+	<form action="index.php?module=member&action=Login" method="POST"/>
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="username">用户名</label>
+						<div class="controls">
+							<input type="text" value="" id="username" name="username"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="password">密码</label>
+						<div class="controls">
+							<input type="password" value="" id="password" name="password"/>
+						</div>
+					</div>
+				</fieldset>
+				
+				<!--<div id="remember-me" class="pull-left">
+					<input type="checkbox" name="remember" id="remember" />
+					<label id="remember-label" for="remember">Remember Me</label>
+				</div>-->
+				
+				<div class="pull-right">
+					<button type="submit" class="btn btn-warning btn-large">
+						登录
+					</button>
+				</div>
+			</form>
+			
+		</div> <!-- /login-content -->
+		
+		
+		<!--<div id="login-extra">
+			
+			<p>没有账户？ <a href="javascript:;">注册</a></p>
+			
+			<p>忘记密码? <a href="forgot_password.html">找回</a></p>
+			
+		</div> -->
+	
+</div> <!-- /login-wrapper -->
+
+    
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{-$media-}/js/jquery-1.7.2.min.js"></script>
+
+
+<script src="{-$media-}/js/bootstrap.js"></script>
+
+  </body>
+</html>
