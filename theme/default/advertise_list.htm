@@ -1,0 +1,668 @@
+{-include file="header.htm"-}
+<body>   
+		<!-- BEGIN PAGE CONTAINER-->
+        <div class="mypage-content">
+			<div class="container-fluid">
+				<!-- BEGIN PAGE HEADER-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+						<h3 class="page-title"></h3>
+						<ul class="breadcrumb">
+							<li> <i class="icon-home"></i><a href="">首页</a><i class="icon-angle-right"></i></li>
+							<li><a href="#">广告管理</a></li>
+						</ul>
+						<!-- END PAGE TITLE & BREADCRUMB-->
+					</div>
+				</div>
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+						<div class="portlet box light-grey">
+							<div class="portlet-body">
+								<div class="clearfix">
+                                    <div class="btn-group">
+                                        <button id="delChoose" class="btn red">删除所选 <i class="icon-minus"></i></button>
+                                    </div>
+
+                                    <div class="btn-group data_status">
+                                        <button id="hideChoose" class="btn red" newStatus="hidden">隐藏所选 <i class="icon-minus"></i></button>
+                                        <button id="showChoose" class="btn green" newStatus="normal">显示所选 <i class="icon-minus"></i></button>
+                                    </div>
+
+                                       <div class="btn-group">
+                                        <a lid='0' class="thickbox editAd" href="#TB_inline?&width=400&height=500&inlineId=editAdvertise">
+    										<button class="btn green">新增 <i class="icon-plus"></i></button>
+                                        </a>
+									   </div>
+                                
+										<div class="btn-group">
+											<a lid='0' class="thickbox batcheditAd"
+												href="#TB_inline?&width=400&height=500&inlineId=batcheditAdvertise">
+												<button class="btn green">
+													批量添加 <i class="icon-plus"></i>
+												</button>
+											</a>
+										</div>
+									
+                                        <div style="float: right;">
+                                            <form action="index.php?module=advertise&action=AdvertiseManage" method="post">
+                                                <select name="language">
+                                                     <option value="" selected="selected">请选择语言进行搜索</option>
+                                                    {-foreach from=$language item=lang-}                                                   
+                                                    <option {-if $so_array.language==$lang.val-}selected="selected"{-/if-} value="{-$lang.val-}">{-$lang.name-}</option>
+                                                    {-/foreach-}
+                                                </select>
+                                                
+                                                <input type="text" {-if $so_array.stime-} value="{-$so_array.stime-}" {-else-} value="选择创建日期进行搜索" {-/if-} name="stime" style="width:140px;" onfocus="if(this.value=='选择创建日期进行搜索'){this.value='';}"  onblur="if(this.value==''){this.value='选择创建日期进行搜索';}"/>
+                                                <input type="text" {-if $so_array.stitle-} value="{-$so_array.stitle-}" {-else-} value="输入广告标题进行搜索" {-/if-} name="stitle" style="width:200px;" onfocus="if(this.value=='输入广告标题进行搜索'){this.value='';}"  onblur="if(this.value==''){this.value='输入广告标题进行搜索';}"/>
+                                                <input style="margin-bottom: 10px" class="btn green" type="submit" name="sub" value="搜索"/>
+                                            </form>
+                                        </div>
+								</div>
+                                <form method="post" action="index.php?module=advertise&action=AdvertiseManage&act=delChoosed"  name="form" id="del_form">
+								<table class="table table-striped table-bordered table-hover" id="sample_1">
+									<thead>
+										<tr>
+											<th style="width:8px;"><input type="checkbox" class="checkall"  /></th>
+											<th>广告标题</th>
+                                            <th class="hidden-480">广告分类</th>
+											<th class="hidden-480">图片</th>
+											<th class="hidden-480">创建日期</th>
+                                            <th class="hidden-480">所属语言</th>
+                                            <th class="hidden-480">尺寸</th>
+                                            <th class="hidden-480">状态</th>
+											<th >操作</th>
+										</tr>
+									</thead>
+
+									<tbody>
+                                        {-if $advertise-}
+                                        {-foreach from=$advertise item='ad'-}
+										<tr class="odd gradeX">
+											<td><input type="checkbox" name="idarray[]" value="{-$ad.id-}" class="idarray"  /></td>
+											<td>{-$ad.title-}</td>
+                                            <td class="hidden-480">{-$snsTypeOne[$ad.ad_type]-}</td>
+                                            <td  class="hidden-480">
+                                                <a href="http://mlo.me{-$ad.picture-}" target="_blank" class="previewPic">
+                                                    <img style="width: 100px;height:100px;" src="http://mlo.me/{-$ad.picture-}" />
+                                                </a>
+                                            </td>
+                                            <td class="hidden-480">{-$ad.gmt_create-}</td>
+                                            <td class="hidden-480">{-$languageOne[$ad.lang]-}</td>
+											<td class="hidden-480">{-$pictureSizeOne[$ad.picture_size]-}</td>
+                                            <td class="hidden-480">{-$ad.data_status_memo-}</td>
+											<td >
+												{-if $ad.is_sns[0] eq '批量'-}
+													<a class="btn mini purple thickbox batcheditAd" lid="{-$ad.id-}" href="#TB_inline?&width=400&height=500&inlineId=batcheditAdvertise"><i class="icon-edit"></i>Edit</a>
+												{-else-}
+													<a class="btn mini purple thickbox editAd" lid="{-$ad.id-}" href="#TB_inline?&width=400&height=500&inlineId=editAdvertise"><i class="icon-edit"></i>Edit</a>
+												{-/if-}
+                                                &nbsp;&nbsp;<a class="btn mini black" onclick="delSingle('{-$ad.id-}')" href="javascript:void(0)"><i class="icon-trash"></i>Delete</a>
+                                                {-if $ad.data_status eq 0-}
+                                                    <a class="btn mini green" onclick="setStatus('{-$ad.id-}', 'hidden')" href="javascript:void(0)"><i class="icon-edit"></i>Hide</a>
+                                                {-else-}
+                                                    <a class="btn mini gray" onclick="setStatus('{-$ad.id-}', 'hidden-normal')" href="javascript:void(0)"><i class="icon-edit"></i>Show</a>
+                                                {-/if-}
+                                            </td>
+										</tr>
+										{-/foreach-}
+                                        {-else-}
+                                        <tr>
+                                            <td colspan="8" style="text-align: center;"><font color='red'>对不起，没有相关记录！</font></td>
+                                        </tr>
+                                        {-/if-}
+									</tbody>
+								</table>
+                                </form>
+                                <div class="row-fluid">
+                                    <div class="pagination">{-$page-}</div>
+                                </div>
+							</div>
+						</div>
+						<!-- END EXAMPLE TABLE PORTLET-->
+					</div>
+				</div>
+			</div>
+   </div>
+    <!--编辑弹出层 start-->
+    <div id="editAdvertise" style="display:none;">
+        <p style="text-align: center;color:orange;"><b>添加/编辑广告</b></p>
+        <div style="text-align:center;" class="tappend"></div>
+    </div>
+    <!--编辑弹出层 end-->
+
+    <!--批量编辑弹出层 start-->
+    <div id="batcheditAdvertise" style="display: none;">
+        <p style="text-align: center; color: orange;">
+            <b>批量添加</b><p>请输入商品ID，以英文逗号间隔</p>
+        </p>
+        <div style="text-align: center;" class="batchtappend"></div>
+    </div>
+    <!--批量编辑弹出层 end-->
+{-include file="footer_div.htm"-}
+<style type="text/css">
+    label{
+    float: left;
+    width: 80px;
+    }
+    form{margin:0px}
+    input{
+    width: 230px;
+    border:1px solid #808080;
+    padding:0px 0px;
+    }
+    
+    select{
+    padding:0px 0px;
+    width: 230px;
+    }
+    
+    textarea{
+    width: 230px;
+    height: 65px;
+    }
+    
+    #sbutton{
+    margin-left: 80px;
+    margin-top: 5px;
+    width:80px;
+    }
+    
+    br{
+    clear: left;
+    }
+    .hidesize{
+        display: none;
+    }
+	.pop-up {
+		float: left;
+	}    
+    #tooltip{
+	position:absolute;
+	border:1px solid #ccc;
+	background:#333;
+	padding:2px;
+	display:none;
+	color:#fff;
+ }
+    label.dataList{margin-right:5px; cursor:default;}
+    label.dataList input{ margin:-2px 2px 0 -35px; }
+
+    .btn-group.data_status button {margin-right:7px;}
+</style>
+{-include file="footer.htm"-}
+<!--引入ajaxfileupload上传插件-->
+<script type="text/javascript" src="{-$media_url-}/js/ajaxfileupload.js"></script>
+
+<script type="text/javascript">
+      $(function(){
+        //开始搜索时间
+        $("input[name='stime']").datepicker();
+
+        // 编辑表单-点击某个广告后的 Edit
+        $(".editAd").click(function(){
+            var id = $(this).attr( 'lid' ); //编辑
+            var html_data = "<form action='' method='post' id='product_form'>"+
+                             "<input type='hidden' value='' class='editId'/>"+
+                             "<label class='pop-up' for='title'>*广告标题:</label>"+
+                             "<input class='pop-up' type='text' id='title' name='title' value='' /><br />"+
+                             "<label class='pop-up' for='type'>*类型:</label>"+
+                             "<select class='pop-up' name='type'>"+
+                             "{-foreach from=$snsType item='stype'-}"+
+                             "<option value='{-$stype.val-}' class='type_{-$stype.val-}'>{-$stype.name-}</option>"+
+                             "{-/foreach-}"+
+                             "</select><br />"+ 
+                             "<label class='pop-up' for='lang'>*语言:</label>"+
+                             "<select class='pop-up' name='lang'>"+
+                             "{-foreach from=$language item='lang'-}"+
+                             "<option value='{-$lang.val-}' class='lang_{-$lang.val-}'>{-$lang.name-}</option>"+
+                             "{-/foreach-}"+
+                             "</select><br />"+ 
+                             "<label class='pop-up' for='size'>尺寸:</label>"+
+                             "<select class='pop-up' name='size'>"+
+                             "{-foreach from=$pictureSize item='psize'-}"+
+                             "<option value='{-$psize.val-}' class='size_{-$psize.val-}'>{-$psize.name-}</option>"+
+                             "{-/foreach-}"+
+                             "</select><br />"+                                      
+                             "<p><label class='pop-up' for='picture'>*图片:</label>"+
+                             "<input  style='border: 0px;padding: 5px;' class='pop-up' type='file' id='picture'  name='picture'/></p>"+
+                             "<br /><p><span style='color:red;font-size:12px;'>仅支持'jpg', 'gif', 'png', 'jpeg'四种格式，最大5M/张</span></p>"+
+                             "<label class='pop-up' for='targetUrl'>*链接:</label>"+
+                             "<input class='pop-up' type='text' id='targetUrl' name='targetUrl' value='' /><br />"+
+                             "<p><span style='color:red;font-size:12px;'>格式：http://www.xxx.xx</span></p>"+
+                             "<label class='pop-up' for='describe'>文字(描述):</label>"+
+                             "<textarea class='pop-up' id='describe' name='describe' rows='3' /></textarea/><br />"+
+                            "<label class='pop-up'>状态:</label>"+
+                            "{-foreach from=$dataStatusForShow item='status'-}"+
+                            '<label class="dataList"><input type="radio" id="data_status_{-$status.val-}" name="data_status" value="{-$status.val-}" />{-$status.name-}</label>'+
+                            "{-/foreach-}"+
+                             "<br /><input type='button' id='sbutton' value='提交' /><br />";
+            html_data+="</form><br/>";
+            $(".tappend").html(html_data);
+
+            //编辑
+            if(id!=='0'){
+               //ajax取得广告信息
+               $.post(
+                   "index.php?module=advertise&action=AdvertiseManage&act=ajax_getAd",
+                   {id:id},
+                   function(data){
+                       if(data.status==1){
+                           var e_title = data.detail.title;
+                           var e_type = data.detail.ad_type;
+                           var e_pictureSize = data.detail.picture_size;
+                           var e_targetUrl = data.detail.target_url;
+                           var e_describe = data.detail.description;
+                           var e_lang = data.detail.lang;
+                           var e_data_status = data.detail.data_status;
+
+                           $(".editId").val(id);
+                           $("#title").val(e_title);
+                           $("select[name='type']").find("option[value='"+e_type+"']").attr("selected",true);
+                           $("select[name='lang']").find("option[value='"+e_lang+"']").attr("selected",true);
+                           $("select[name='size']").find("option[value='"+e_pictureSize+"']").attr("selected",true);
+                           $('#data_status_' + e_data_status).attr('checked', true);
+                           $("#targetUrl").val(e_targetUrl);
+                           $("#describe").val(e_describe);
+
+                           if(e_type=='3'){
+                               $("label[for='size']").addClass('hidesize');
+                               $("select[name='size']").addClass('hidesize');
+                               $("label[for='targetUrl']").html("视频链接:");
+                           }else if(e_type=='1'){
+                               $("label[for='size']").addClass('hidesize');
+                               $("select[name='size']").addClass('hidesize');
+                           }else{
+                               $("label[for='size']").removeClass('hidesize');
+                               $("select[name='size']").removeClass('hidesize');
+                               $("label[for='targetUrl']").html("链接:");
+                           }
+                       }else{
+                           alert('false');
+                       }
+                   },
+                   'json'
+               );
+            } else {    // 新添加时，默认选中第一个状态
+                $('input[name="data_status"]:first').attr('checked', true);
+            };
+            
+            var originSelected = $("select[name='type']").val();
+            if(originSelected=='1'){
+                   $("label[for='size']").addClass('hidesize');
+                   $("select[name='size']").addClass('hidesize');
+            }
+            
+            //类型选中变化后界面相应变化
+            $("select[name='type']").change(function(){
+               var selected = $(this).val();
+               if(selected=='3'){
+                   $("label[for='size']").addClass('hidesize');
+                   $("select[name='size']").addClass('hidesize');
+                   $("label[for='targetUrl']").html("视频链接:");
+               }else if(selected=='1'){
+                   $("label[for='size']").addClass('hidesize');
+                   $("select[name='size']").addClass('hidesize');
+               }else{
+                   $("label[for='size']").removeClass('hidesize');
+                   $("select[name='size']").removeClass('hidesize');
+                   $("label[for='targetUrl']").html("链接:");
+               }
+            });
+
+            //ajax提交验证
+            $("#sbutton").click(function(){
+                var adId = $(".editId").val();
+                var title = $("#title").val();
+                var type = $("select[name='type']").val();
+                var lang = $("select[name='lang']").val();
+                var size = $("select[name='size']").val();
+                var picture = $('#picture').val();
+                var targetUrl = $('#targetUrl').val();
+                var describe = $('#describe').val();
+                var soDate = '{-$so_array.stime-}';
+                var soTitle = '{-$so_array.stitle-}';
+                var data_status=$("input[name='data_status']:checked").val();
+
+                if(/^[\s]*$/.test(title)){
+                   alert('请填写广告名称');
+                   return false;
+                 }
+                 if((id=='0')&&(/^[\s]*$/.test(picture))){
+                   alert('请选择要上传的图片');
+                   return false;
+                 }
+                 if(/^[\s]*$/.test(targetUrl)){
+                   alert('请填写链接地址');
+                   return false;
+                 }                          
+                 if(confirm('确定要提交吗？')){
+                       //ajax提交信息并验证
+                       
+                       $.ajaxFileUpload(
+                           {
+                               url: "index.php?module=advertise&action=AdvertiseManage&act=ajax_subAd", //用于文件上传的服务器端请求地址
+                               secureuri: false, //是否需要安全协议，一般设置为false
+                               fileElementId: 'picture', //文件上传域的ID
+                               dataType: 'json', //返回值类型 一般设置为json
+                               data:{adId:adId,
+                                   title:title,
+                                   type:type,
+                                   size:size,
+                                   targetUrl:targetUrl,
+                                   describe:describe,
+                                   lang:lang,
+                                   'data_status':data_status
+                               },
+                               success: function (data, status)  //服务器成功响应处理函数
+                               {
+                                   if(data.flag==1){
+                                       alert('广告信息提交成功');
+                                       if(soDate||soTitle){
+                                               $("input[type='submit']").click();
+                                       }else{
+                                               window.parent.mainFrame.location.reload();
+                                       }
+                                   }else if(data.flag==2){
+                                       alert(data.msg);
+                                       return false;
+                                   }else{
+                                       alert('广告信息提交失败');
+                                       return false;
+                                   }
+                               },
+                               error: function (data, status, e)//服务器响应失败处理函数
+                               {
+                                   alert('服务器未响应');
+                               }
+                           }
+                       );
+                 }
+            });
+		});
+        
+        
+        // 批量添加的广告 ，点击每行后的“Edit”按钮后 -- 开始
+        $(".batcheditAd").click(function(){
+            var id = $(this).attr( 'lid' ); //编辑
+            var html_data = "<form action='' method='post' id='product_form'>"+
+                             "<input type='hidden' value='' class='editId'/>"+
+                             "<label for='describe'>商品ID:</label>"+
+                             "<textarea class='pop-up' id='describe' name='describe'/></textarea/><br />"+
+                             "<label for='lang'>*语言:</label>"+
+                             "<select class='pop-up' name='lang'>"+
+                             "{-foreach from=$language item='lang'-}"+
+                             "<option value='{-$lang.val-}' class='lang_{-$lang.val-}'>{-$lang.name-}</option>"+
+                             "{-/foreach-}"+
+                             "</select><br />"+
+                             "<input type='button' id='batchtbutton' value='提交' /><br />";
+            html_data+="</form><br/>";
+            $(".batchtappend").html(html_data);
+
+            //编辑
+            if(id!=='0'){
+               //ajax取得广告信息
+               $.post(
+                   "index.php?module=advertise&action=AdvertiseManage&act=ajax_getAd",
+                   {id:id},
+                   function(data){
+                       if(data.status==1){
+                           var e_title = data.detail.title;
+                           var e_type = data.detail.ad_type;
+                           var e_pictureSize = data.detail.picture_size;
+                           var e_targetUrl = data.detail.target_url;
+                           var e_describe = data.detail.description;
+                           var e_lang = data.detail.lang;
+                           var pid_arr = e_title.split("-");
+                           $(".editId").val(id);
+                           $("#describe").val(pid_arr[1]);
+                           $("select[name='type']").find("option[value='"+e_type+"']").attr("selected",true);
+                           $("select[name='lang']").find("option[value='"+e_lang+"']").attr("selected",true);
+                           $("select[name='size']").find("option[value='"+e_pictureSize+"']").attr("selected",true);
+                           $('#data_status_' + e_data_status).attr('checked', true);
+                           $("#targetUrl").val(e_targetUrl);
+
+                           //$("#describe").val(e_describe);
+                           if(e_type=='3'){
+                               $("label[for='size']").addClass('hidesize');
+                               $("select[name='size']").addClass('hidesize');
+                               $("label[for='targetUrl']").html("视频链接:");
+                           }else if(e_type=='1'){
+                               $("label[for='size']").addClass('hidesize');
+                               $("select[name='size']").addClass('hidesize');
+                           }else{
+                               $("label[for='size']").removeClass('hidesize');
+                               $("select[name='size']").removeClass('hidesize');
+                               $("label[for='targetUrl']").html("链接:");
+                           }
+                       }else{
+                           alert('false');
+                       }
+                   },
+                   'json'
+               );
+            };
+            
+            var originSelected = $("select[name='type']").val();
+            if(originSelected=='1'){
+                   $("label[for='size']").addClass('hidesize');
+                   $("select[name='size']").addClass('hidesize');
+            }
+            
+            //类型选中变化后界面相应变化
+            $("select[name='type']").change(function(){
+               var selected = $(this).val();
+               if(selected=='3'){
+                   $("label[for='size']").addClass('hidesize');
+                   $("select[name='size']").addClass('hidesize');
+                   $("label[for='targetUrl']").html("视频链接:");
+               }else if(selected=='1'){
+                   $("label[for='size']").addClass('hidesize');
+                   $("select[name='size']").addClass('hidesize');
+               }else{
+                   $("label[for='size']").removeClass('hidesize');
+                   $("select[name='size']").removeClass('hidesize');
+                   $("label[for='targetUrl']").html("链接:");
+               }
+            });
+
+            //ajax提交验证
+            $("#batchtbutton").click(function(){
+                var adId = $(".editId").val();
+                var lang = $("select[name='lang']").val();
+                var describe = $('#describe').val();
+                var soDate = '{-$so_array.stime-}';
+                var soTitle = '{-$so_array.stitle-}';
+                var batcht = 'batcht';
+                if(/^[\s]*$/.test(describe)){
+                   alert('请填写商品ID');
+                   return false;
+                 }                    
+                 if(confirm('确定要提交吗？')){
+                       //ajax提交信息并验证
+                       $.ajax(
+                           {
+                        	   type: "GET",
+                               url: "index.php?module=advertise&action=AdvertiseManage&act=ajax_subAd", //用于文件上传的服务器端请求地址
+                               dataType: 'json', //返回值类型 一般设置为json
+                               data:{adId:adId,type:batcht,describe:describe,lang:lang},                                        
+                               success: function (data, status)  //服务器成功响应处理函数
+                               {
+                                   if(data.flag==1){
+                                       alert('广告信息提交' + data.msg);
+                                       if(soDate || soTitle){
+                                           $("input[type='submit']").click();
+                                       }else{
+                                           window.parent.mainFrame.location.reload();
+                                       }
+                                   }else if(data.flag==2){
+                                       alert('广告信息提交' + data.msg);
+                                       return false;
+                                   }else{
+                                       alert('广告信息提交失败');
+                                       return false;
+                                   }
+                                   
+                               },
+                               error: function (data, status, e)//服务器响应失败处理函数
+                               {
+                                   alert('服务器未响应');
+                               }
+                           }
+                       );
+                 }
+            }) 
+		});
+        // 批量添加的广告 ，点击每行后的“Edit”按钮后 -- 结束
+});
+
+//全选并改变样式
+$(document).ready(function(){
+    $('.checkall').click(function(){
+        var flag = $(this).attr('checked');
+        if(flag=='checked'){
+            $('.idarray').attr('checked','checked');
+            $('.checker span').addClass('checked');
+        }else{
+            $('.idarray').removeAttr('checked');
+            $('.checker span').removeClass('checked');
+        }
+    })
+});
+    
+$(function(){
+    //删除选中项目
+    $('#delChoose').click(function(){
+        var check = checked();
+        if(check==true){
+            if(confirm('确定要删除选中项吗？')){
+                $("#del_form").submit();
+            }
+        }else{
+            alert('请至少选择一项');
+            return false;
+        }
+    });
+    // 隐藏选中项目 #29115 , 2014.9.25 chengbolin@milanoo.com
+    $('#hideChoose,#showChoose').click(function(){
+        var check = checked();
+
+        var _newStatusMemo={
+            'normal': '在前台显示',
+            'hidden': '在前台隐藏'
+        };
+        var newStatus=$(this).attr('newStatus');
+        if(check==true){
+            if(confirm('确定要' + _newStatusMemo[newStatus] + '选中项吗？')){
+                var _form=$("#del_form");
+                _form.attr('action', _form.attr('action').replace(/&act=\w+(&newStatus=\w+)*/i, '&act=setBatchStatus&newStatus='+newStatus) );
+                _form.submit();
+            }
+        }else{
+            alert('请至少选择一项');
+            return false;
+        }
+    });
+});
+
+function checked(){
+    var isChecked = false;
+    $(".idarray").each(function() {
+        if($(this).attr("checked")==true || $(this).attr("checked")=="checked") {
+            isChecked=true;
+            return;
+        }
+    });
+    return isChecked;
+}
+
+//单独删除
+ function delSingle(id)
+ {
+    var soDate = '{-$so_array.stime-}';
+    var soTitle = '{-$so_array.stitle-}';
+    if(confirm("确定删除该条广告吗？")){
+        $.post("index.php?module=advertise&action=AdvertiseManage&act=delSingle",
+            { id:id},
+            function(data){
+               if(data.status=='1'){
+                    //alert('操作成功！');
+                    if(soDate||soTitle){
+                        $("input[type='submit']").click();
+                    }else{
+                        window.parent.mainFrame.location.reload();
+                    }
+               }else{
+                    alert('操作失败！');
+               }
+            },
+            "json"
+         );
+    }
+}
+
+  /**
+   * 单独设置状态，目前包括 隐藏 (取消激活) 和 显示
+   * 2014.9.25 chengbolin@milanoo.com
+   * #29115
+   */
+  function setStatus(id, newStatus){
+      var soDate = '{-$so_array.stime-}';
+      var soTitle = '{-$so_array.stitle-}';
+
+      // 定义与数据库字段 data_status 对应的枚举类型
+      var NEW_DATA_STATUS_TIP={
+          'hidden-normal':'恢复在前台显示该广告',
+          'deleted':'删除该广告',
+          'hidden':'在前台隐藏该广告'
+      };
+
+      if(confirm('确定' + NEW_DATA_STATUS_TIP[newStatus] + '吗？')){
+          $.post("index.php?module=advertise&action=AdvertiseManage&act=setStatus",
+              {'id':id, 'newStatus':newStatus},
+              function(data){
+                  if(data.status=='1') {
+                      //alert('操作成功！');
+                      // 如果当前处于搜索状态，则重新提交并搜索
+                      if(soDate || soTitle){
+                          $("input[type='submit']").click();
+                      }else{
+                          window.parent.mainFrame.location.reload();
+                      }
+                  }else{
+                      alert('操作失败！');
+                  }
+              },
+              "json"
+          );
+      }
+  }
+
+$(function(){
+	var x = 10;
+	var y = 20;
+	$("a.previewPic").mouseover(function(e){	
+		var tooltip = "<div id='tooltip'><img src='"+ this.href +"' alt='产品预览图'/><\/div>"; //创建 div 元素
+		$("body").append(tooltip);	//把它追加到文档中						 
+		$("#tooltip")
+			.css({
+				"top": (e.pageY+y) + "px",
+				"left":  (e.pageX+x)  + "px"
+			}).show("fast");	  //设置x坐标和y坐标，并且显示
+    }).mouseout(function(){	
+		$("#tooltip").remove();	 //移除 
+    }).mousemove(function(e){
+		$("#tooltip")
+			.css({
+				"top": (e.pageY+y) + "px",
+				"left":  (e.pageX+x)  + "px"
+			});
+	});
+});
+</script>
+</body>
+</html>

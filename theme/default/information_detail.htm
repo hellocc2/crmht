@@ -1,0 +1,113 @@
+{-include file="header.htm"-}
+<body>   
+
+			<!-- BEGIN PAGE CONTAINER-->        
+        <div class="mypage-content">
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+
+					<div class="span12">						 
+
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+						<h3 class="page-title">
+
+						</h3>
+
+						<ul class="breadcrumb">
+
+							<li>
+
+								<i class="icon-home"></i>
+
+								<a href="">首页</a> 
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li>
+                                
+                                <a href="index.php?module=information&action=InformationManage">信息管理</a>
+                            
+                                <i class="icon-angle-right"></i>
+                                
+                            </li>
+                            
+                            <li><a href="#">信息详情</a></li>
+
+						</ul>
+
+						<!-- END PAGE TITLE & BREADCRUMB-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid profile">
+
+					<div class="span12">
+                    
+                        <div class="tabbable tabbable-custom tabbable-full-width">
+                    
+                            <div>
+
+					           <div class="tab-pane profile-classic row-fluid" id="tab_1_2">
+
+									<ul class="unstyled span10">
+
+										<li><span>姓名：</span> {-$detail.MemberContact-}</li><br />
+
+										<li><span>Email：</span> <a href="mailto:{-$detail.MemberEmail-}" target="_blank">{-$detail.MemberEmail-}</a></li><br />
+
+										<li>
+                                            <span>博客地址：</span> 
+                                            {-foreach from=$detail.content item='em'-}
+                                                <a href="{-$em-}" target="_blank">{-$em-}</a>;
+                                            {-/foreach-}
+                                        </li><br />
+
+										<li><span>转发类型：</span> {-$sendTypeOne[$detail.share_type]-}</li><br />
+
+										<li><span>提交日期:</span> {-$detail.gmt_create-}</li><br />
+
+										<li><span>信息内容:</span> {-$detail.description-}</li>
+                                        
+									</ul>
+
+								</div>
+                                
+                                <div><input style="float: right;" type="button" value=" 返    回 " onclick="javascript:history.back(-1);" /></div>
+    
+						      </div>
+                        
+                        </div>
+
+					</div>
+
+				</div>
+
+			</div>
+   </div>
+
+{-include file="footer_div.htm"-}
+
+{-include file="footer.htm"-}
+<style type="text/css">
+.profile-classic li span {
+    color: #666666;
+    font-size: 15px;
+    margin-right: 7px;
+    margin-left:340px;
+}
+</style>
+
+</body>
+    
+</html>

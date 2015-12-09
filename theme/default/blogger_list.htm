@@ -1,0 +1,270 @@
+{-include file="header.htm"-}
+<body>   
+
+			<!-- BEGIN PAGE CONTAINER-->        
+        <div class="mypage-content">
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+
+					<div class="span12">						 
+
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+						<h3 class="page-title">
+
+						</h3>
+
+						<ul class="breadcrumb">
+
+							<li>
+
+								<i class="icon-home"></i>
+
+								<a href="">首页</a> 
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li><a href="#">用户管理</a></li>
+
+						</ul>
+
+						<!-- END PAGE TITLE & BREADCRUMB-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+
+				<div class="row-fluid">
+
+					<div class="span12">
+
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+						<div class="portlet box light-grey">							
+
+							<div class="portlet-body"> 
+
+								<div class="clearfix">
+                                        
+                                        <div style="float: right;">
+                                        
+                                            <form action="index.php?module=blogger&action=BloggerManage" method="post"> 
+                                            
+                                                <input type="text" {-if $so_array.memid-} value="{-$so_array.memid-}" {-else-} value="输入用户ID进行搜索" {-/if-} name="memid" style="width:200px;" onfocus="if(this.value=='输入用户ID进行搜索'){this.value='';}"  onblur="if(this.value==''){this.value='输入用户ID进行搜索';}"/>
+                                                
+                                                <input type="text" {-if $so_array.suname-} value="{-$so_array.suname-}" {-else-} value="输入姓名进行搜索" {-/if-} name="suname" style="width:200px;" onfocus="if(this.value=='输入姓名进行搜索'){this.value='';}"  onblur="if(this.value==''){this.value='输入姓名进行搜索';}"/>
+
+                                                <input type="text" {-if $so_array.mail-} value="{-$so_array.mail-}" {-else-} value="输入邮箱地址进行搜索" {-/if-} name="mail" style="width:200px;" onfocus="if(this.value=='输入邮箱地址进行搜索'){this.value='';}"  onblur="if(this.value==''){this.value='输入邮箱地址进行搜索';}"/>
+
+												<input type="text" {-if $so_array.mail-} value="{-$so_array.blog-}" {-else-} value="输入BLOG地址进行搜索(不要加http www)" {-/if-} name="blog" style="width:260px;" onfocus="if(this.value=='输入BLOG地址进行搜索(不要加http www)'){this.value='';}"  onblur="if(this.value==''){this.value='输入BLOG地址进行搜索(不要加http www)';}"/>
+
+                                                <input style="margin-bottom: 10px" class="btn green" type="submit" name="sub" value="搜索"/>
+                                            
+                                            </form>
+                                        
+                                        </div>                                        
+                                        
+								</div>
+                                <form method="post" action="index.php?module=blogger&action=BloggerManage&act=delChoosed"  name="form" id="del_form">
+								<table class="table table-striped table-bordered table-hover" id="sample_1">
+									<thead>
+										<tr>
+											<th width="5%"><input type="checkbox" class="checkall"  /></th>
+											<th width="10%">用户ID</th>
+                                            <th width="10%">姓名</th>
+                                            <th class="hidden-480" width="10%">性别</th>
+                                            <th class="hidden-480" width="20%">邮箱/博客地址</th>
+											<th class="hidden-480" width="15%">绑定负责人</th>
+											<th class="hidden-480" width="10%">积分</th>
+											<th width="5%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+                                        {-if $member_info-}
+                                        {-foreach from=$member_info item='minfo'-}
+										<tr class="odd gradeX">
+
+											<td><input type="checkbox" name="idarray[]" value="{-$minfo.MemberId-}" class="idarray"  /></td>
+                                            
+                                            <td>{-$minfo.MemberId-}</td>
+                                            
+											<td>{-$minfo.MemberContact-}</td>
+                                            
+                                            <td class="hidden-480">
+                                                {-if $minfo.MemberSex=='Women'-}
+                                                    女                                                
+                                                {-elseif $minfo.MemberSex=='Men'-}
+                                                    男
+                                                {-else-}
+                                                    未知
+                                                {-/if-} 
+                                            </td>
+
+                                            <td  class="hidden-480">
+                                                {-$minfo.MemberEmail-}
+                                                {-if $minfo.blogs-}
+                                                {-foreach from=$minfo.blogs item=blog-}
+                                                <br/><a href="{-$blog-}" target="_blank">{-$blog-}</a>
+                                                {-/foreach-}
+                                                {-else-}
+                                                <font color="red">尚未完善</font>
+                                                {-/if-}
+                                            </td>                    
+											
+											<td style="width:95px;" class="hidden-480">
+                                                <p id={-$minfo.MemberId-} class="editme">{-if $minfo.trace_name-}{-$minfo.trace_name-}{-else-}{-/if-}</p> 
+                                            </td>
+											
+											<td class="hidden-480">
+                                                {-if $minfo.score-} 
+                                                    {-$minfo.score-}
+                                                {-else-}
+                                                <font color="red">无</font>
+                                                {-/if-} 
+                                            </td>
+
+											<td >
+                                                <a class="btn mini green" href="index.php?module=blogger&action=BloggerManage&act=memberDetail&memberId={-$minfo.MemberId-}"><i class="icon-list"></i> 查看</a>
+                                                <a class="btn mini black" onclick="delSingle('{-$minfo.MemberId-}')" href="javascript:void(0)"><i class="icon-trash"></i>Delete</a>
+                                            </td>
+
+										</tr>
+										{-/foreach-}
+                                        {-else-}
+                                        <tr>
+                                            <td colspan="8" style="text-align: center;"><font color='red'>对不起，没有相关记录！</font></td>
+                                        </tr>
+                                        {-/if-}
+
+									</tbody>
+
+								</table>
+                                </form>
+                                <div class="row-fluid">
+                                    <div class="pagination">{-$page-}</div>
+                                </div>
+
+							</div>
+
+						</div>
+
+						<!-- END EXAMPLE TABLE PORTLET-->
+
+					</div>
+
+				</div>
+
+			</div>
+   </div>
+   
+{-include file="footer_div.htm"-}
+
+{-include file="footer.htm"-}
+<link href="{-$media_url-}/css/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{-$media_url-}/js/lib/jquery.jeditable.mini.js"></script>
+<script type="text/javascript" src="{-$media_url-}/js/lib/jquery.autocomplete.min.js"></script>
+
+<script type="text/javascript">    
+    //全选并改变样式
+  
+$(document).ready(function(){
+	
+	
+	$.editable.addInputType('autocomplete', {
+	        element : $.editable.types.text.element,
+	        plugin : function(settings, original) {
+	            $('input', this).autocomplete(settings.autocomplete.data);
+	        }
+	    });
+
+		$(".editme").editable("index.php?module=blogger&action=BloggerManage&act=binding", {
+			onblur    : "ignore",
+			minChars: 1,
+			selectOnly: 1,
+			name : 'name',
+	        indicator : "<img src='../media/image/indicator.gif'>",
+	        type      : "autocomplete",
+	        submit : "保存",
+	        autocomplete : {
+	           data : [{-$allMember_srt-}]
+	        },
+	        cancel : '取消'
+	    });
+		
+		
+    //$('.editme').editable('index.php?module=blogger&action=BloggerManage&act=edit&memberid={-$memberid-}', {indicator : "<img src='../media/image/indicator.gif'>",name : 'name', submit : "保存", cancel : '取消'});
+    //$('.editselectme').editable('index.php?module=blogger&action=BloggerManage&act=edit&memberid={-$memberid-}', {indicator : "<img src='../media/image/indicator.gif'>",name : 'name', submit : "保存", cancel : '取消' ,data : ' {-$alllcountry_array-} ',type : 'select'});
+
+    $('.checkall').click(function(){
+        
+        var flag = $(this).attr('checked');
+        if(flag=='checked'){
+            $('.idarray').attr('checked','checked');
+            $('.checker span').addClass('checked');
+        }else{
+            $('.idarray').removeAttr('checked');
+            $('.checker span').removeClass('checked');
+        }
+    })
+}) 
+
+function checked(){ 
+        var isChecked = false; 
+        $(".idarray").each(function(){ 
+                    if($(this).attr("checked")==true || $(this).attr("checked")=="checked"){ 
+                    isChecked=true; 
+                    return;} 
+            })
+        return isChecked; 
+    }     
+
+$(function(){
+    $('#delChoose').click(function(){
+        var check = checked();
+        if(check==true){
+            if(confirm('确定要删除选中项吗？')){
+                $("#del_form").submit();
+            }           
+        }else{
+            alert('请至少选择一项');
+            return false;
+        }
+        
+    })
+    
+})
+
+ function delSingle(id){
+        var soUname = '{-$so_array.suname-}';
+        if(confirm("确定删除吗？")){
+            $.post("index.php?module=blogger&action=BloggerManage&act=delSingle", 
+                    { id:id},
+                    function(data){
+                       if(data.status=='1'){
+                            //alert('操作成功！');
+                            if(soUname){
+                                    $("input[type='submit']").click();
+                            }else{
+                                    window.parent.mainFrame.location.reload();
+                            }
+                       }else{
+                            alert('操作失败！');
+                       }
+                    },
+                    "json"
+                    );
+        }
+    }
+</script>
+</body>
+    
+</html>

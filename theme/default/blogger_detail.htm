@@ -1,0 +1,547 @@
+{-include file="header.htm"-}
+<style type="text/css">
+.profile-classic li span,.active li span {
+    color: #666666;
+    font-size: 15px; 
+    margin-right: 7px;
+    margin-left:340px;
+}
+label{
+    float: left;
+    width: 80px;
+    }
+    form{margin:0px}
+    input{
+    width: 160px;
+    border:1px solid #808080;
+    padding:0px 0px;
+    }
+    
+    select{
+    padding:0px 0px;
+    width: 230px;
+    }
+    
+    textarea{
+    width: 230px;
+    height: 80px;
+    }
+    
+    #sbutton{
+    margin-left: 80px;
+    margin-top: 5px;
+    width:80px;
+    }
+    
+    br{
+    clear: left;
+    }
+    .hidesize{
+        display: none;
+    }
+    .row-fluid .span9 {
+        width: 100%;
+}
+</style>
+<body>   
+
+			<!-- BEGIN PAGE CONTAINER-->        
+        <div class="mypage-content">
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+
+					<div class="span12">						 
+
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+						<h3 class="page-title">
+
+						</h3>
+
+						<ul class="breadcrumb">
+
+							<li>
+
+								<i class="icon-home"></i>
+
+								<a href="">首页</a> 
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li><a href="#">用户详情</a></li>
+
+						</ul>
+
+						<!-- END PAGE TITLE & BREADCRUMB-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+
+				<div class="row-fluid profile">
+
+					<div class="span12">
+
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+						<div class="tabbable tabbable-custom tabbable-full-width">
+
+							<ul class="nav nav-tabs">
+
+								<li {-if $isActive=='base'-}class="active"{-/if-}><a href="#tab_1_1" data-toggle="tab">基本信息</a></li>
+
+								<li><a href="#tab_1_2" data-toggle="tab">体型信息</a></li>
+
+								<li><a href="#tab_1_3" data-toggle="tab">收货地址</a></li>
+
+								<li {-if $isActive=='memScore'-}class="active"{-/if-}><a href="#tab_1_4" data-toggle="tab">积分记录</a></li>
+
+								<li {-if $isActive=='choosed'-}class="active"{-/if-}><a href="#tab_1_5" data-toggle="tab">所选商品</a></li>
+                                
+                                <li {-if $isActive=='memInfo'-}class="active"{-/if-}><a href="#tab_1_6" data-toggle="tab">所发信息</a></li>
+
+							</ul>
+
+							<div class="tab-content">
+                            
+                                <div style="margin-left:50px;" class="tab-pane {-if $isActive=='base'-}active{-else-}profile-classic{-/if-} row-fluid" id="tab_1_1">
+
+                                        <label>用户ID: </label><p>{-$baseInfo.MemberId-}</p>
+                                        <br />
+										<label>姓名: </label><p>{-$baseInfo.MemberContact-}</p>
+										<br />
+										<label>Email: </label><p>{-if $baseInfo.MemberEmail-}{-$baseInfo.MemberEmail-}{-else-}<font color='red'>尚未完善</font>{-/if-}</p>
+										<br />
+										<label>性别: </label><p> {-if $baseInfo.MemberSex=='Women'-}女{-elseif $baseInfo.MemberSex=='Men'-}男{-else-}未知{-/if-}</p>
+										<br />
+										<label>年龄: </label><p id='age_range' class="editme">{-if $baseInfo.age_range-}{-$baseInfo.age_range-}{-else-}<font color='red'>尚未完善</font>{-/if-}</p>
+										<br />
+										<label>爱好: </label><p id='interests' class="editme">{-if $baseInfo.interests-}{-$baseInfo.interests-}{-else-}<font color='red'>尚未完善</font>{-/if-}</p>
+										<br />
+                                        {-if $baseInfo.blogs-}
+                                            {-foreach from=$baseInfo.blogs item=blogs key=key-}
+                                            <label>博客地址{-$key+1-}:</label>
+                                                <p id='url_{-$key-}' class="editme" href="{-$blogs.url-}">{-$blogs.url-}</p>
+                                                {-if $blogs.duplicatedMemberId-}重复用户ID：
+                                                    {-foreach from=$blogs.duplicatedMemberId item=id-}
+                                                    <a href="index.php?module=blogger&action=BloggerManage&act=memberDetail&memberId={-$id-}" target="_blank">{-$id-}</a>
+                                                    {-/foreach-}
+                                                {-/if-}
+                                                <br />
+                                            {-/foreach-}
+                                        {-else-}
+                                            <label>博客地址:</label>
+                                                <p><font color='red'>尚未完善</font></p>
+                                        {-/if-}
+
+								</div>
+                                
+                                <div style="margin-left:50px;" class="tab-pane profile-classic row-fluid" id="tab_1_2">
+
+									<label>胸围:</label><p style="width:154px;" id='chest' class="editme">{-if $bwhInfo.chest-}{-$bwhInfo.chest-}{-else-}{-/if-}</p>{-$bwhInfo.unit-}<br />
+
+									<label>腰围:</label><p style="width:154px;" id='waist' class="editme">{-if $bwhInfo.waist-}{-$bwhInfo.waist-}{-else-}{-/if-}</p>{-$bwhInfo.unit-}<br />
+
+									<label>臀围:</label><p style="width:154px;" id='hips' class="editme">{-if $bwhInfo.hips-} {-$bwhInfo.hips-}{-else-}{-/if-}</p>{-$bwhInfo.unit-}<br />
+
+									<label>身高:</label><p style="width:154px;" id='height' class="editme">{-if $bwhInfo.height-} {-$bwhInfo.height-}{-else-}{-/if-}</p>{-$bwhInfo.unit-}
+
+								</div>
+                                
+                                <div style="margin-left:50px;" class="tab-pane profile-classic row-fluid" id="tab_1_3">
+
+										<label style="width:220px;">Recipient Country/Region(国家):</label><p id='ConsigneeStateId' class="editselectme">{-if $addressInfo.country-}{-$addressInfo.country-}{-else-}{-/if-}</p><br />
+
+										<label style="width:220px;">State/Province/Region(省/洲):</label><p id='MemberUrbanAreas' class="editme">{-if $addressInfo.MemberUrbanAreas-}{-$addressInfo.MemberUrbanAreas-}{-else-}{-/if-}</p><br />
+                                        
+                                        <label style="width:220px;">City(城市):</label><p id='ConsigneeCity' class="editme">{-if $addressInfo.ConsigneeCity-}{-$addressInfo.ConsigneeCity-}{-else-}{-/if-}</p><br />
+                                        
+                                        <label style="width:220px;">Zip/Postal Code(邮政编码):</label><p id='ConsigneePostalcode' class="editme">{-if $addressInfo.ConsigneePostalcode-}{-$addressInfo.ConsigneePostalcode-}{-else-}{-/if-}</p><br />
+                                        
+                                        <label style="width:220px;">Phone Number(电话号码):</label><p id='ConsigneePhone' class="editme">{-if $addressInfo.ConsigneePhone-}{-$addressInfo.ConsigneePhone-}{-else-}{-/if-}</p>
+
+
+								</div>
+
+
+								<div class="tab-pane {-if $isActive=='memScore'-}active{-else-}profile-classic{-/if-} row-fluid" id="tab_1_4">
+
+									<div class="span9">
+
+										<!--end row-fluid-->
+
+										<div class="tabbable tabbable-custom tabbable-custom-profile">
+
+											<div class="tab-content">
+
+												<div class="tab-pane active" id="tab_1_11">
+
+													<div class="portlet-body" style="display: block;">
+                                                        
+                                                        <div>
+                                                            <span style="float: left;"><font color='green'>当前积分:</font>{-if $memberScore-}{-$memberScore-}{-else-}0{-/if-}</span>
+                                                            <span style="float: right;">
+                                                                <a lid='0' class="thickbox editTk" href="#TB_inline?&width=380&height=250&inlineId=editTask"><button class="btn green">分配积分</button></a>
+                                                            </span>
+                                                        </div><br /><br />
+
+														<table class="table table-striped table-bordered table-advance table-hover">
+
+															<thead>
+
+																<tr>
+																	<th>积分记录说明</th>
+																	<th>积分</th>
+																	<th>日期</th>
+																	<th>分享URL/备注</th>
+																</tr>
+
+															</thead>
+
+															<tbody>
+                                                                {-if $scoreRecord-}
+                                                                    {-foreach from=$scoreRecord item=record-}
+    																<tr>
+    																	<td style="color:{-$record.actionColor-}">{-$record.actionName-}</td>
+    																	<td style="color:{-$record.actionColor-}">{-$record.score-}</td>
+    																	<td>{-$record.gmt_create-}</td>
+    																	<td>{-$record.content-}</td>
+    																</tr>
+                                                                    {-/foreach-}
+                                                                {-else-}
+                                                                    <tr>
+                                                                        <td colspan="3" style="text-align: center;"><font color='red'>该用户暂时没有积分记录</font></td>
+                                                                    </tr>
+                                                                {-/if-}
+
+															</tbody>
+
+														</table>
+
+													</div>
+
+												</div>
+
+												<!--tab-pane-->
+
+											</div>
+
+										</div>
+
+									</div>
+
+									<!--end span9-->
+
+								</div>
+                                
+                                <div class="tab-pane {-if $isActive=='choosed'-}active{-else-}profile-classic{-/if-} row-fluid" id="tab_1_5">
+
+									<div class="span9">
+
+										<!--end row-fluid-->
+
+										<div class="tabbable tabbable-custom tabbable-custom-profile">
+
+											<div class="tab-content">
+
+												<div class="tab-pane active" id="tab_1_11">
+
+													<div class="portlet-body" style="display: block;">
+
+														<table class="table table-striped table-bordered table-advance table-hover">
+
+															<thead>
+
+																<tr>
+                                                                    
+                                                                    <th>用户ID</th>
+
+																	<th>姓名</th>
+                                                                    
+                                                                    <th>邮箱</th>
+
+																	<th>所选商品ID</th>
+
+																	<th>积分</th>
+
+																	<th>提交日期</th>
+                                                                    
+                                                                    <th>操作</th>
+
+																</tr>
+
+															</thead>
+
+															<tbody>
+                                                                 {-if $choosed_data-}
+                                                                {-foreach from=$choosed_data item=choosed-}
+																<tr>
+                                                                
+                                                                    <td>{-$choosed.MemberId-}</td>
+
+																	<td>{-$choosed.MemberContact-}</td>
+                                                                    
+                                                                    <td>{-$choosed.MemberEmail-}</td>
+
+																	<td style="word-break:break-all;width:340px;">{-$choosed.productIds-}</td>
+
+																	<td>{-$choosed.scores-}</td>
+
+																	<td>{-$choosed.gmt_create-}</td>
+                                                                    
+                                                                    <td><a class="btn mini green" href="index.php?module=choosed&action=ChoosedManage&act=choosedDetail&oid={-$choosed.id-}&memid={-$choosed.MemberId-}&memname={-$choosed.MemberUserName-}&subdate={-$choosed.gmt_create-}&state={-$choosed.background_state-}"><i class="icon-list"></i> 查看</a></td>
+
+																</tr>
+                                                                {-/foreach-}
+                                                                {-else-}
+                                                                    <tr>
+                                                                        <td colspan="5" style="text-align: center;"><font color='red'>没有相关记录</font></td>
+                                                                    </tr>
+                                                                {-/if-}
+
+															</tbody>
+
+														</table>
+                                                        <div class="row-fluid">
+                                                            <div class="pagination">{-$choosedPage-}</div>
+                                                        </div>
+
+													</div>
+
+												</div>
+
+												<!--tab-pane-->
+
+											</div>
+
+										</div>
+
+									</div>
+
+									<!--end span9-->
+
+								</div>
+                                
+                                <div class="tab-pane {-if $isActive=='memInfo'-}active{-else-}profile-classic{-/if-} row-fluid" id="tab_1_6">
+
+									<div class="span9">
+
+										<!--end row-fluid-->
+
+										<div class="tabbable tabbable-custom tabbable-custom-profile">
+
+											<div class="tab-content">
+
+												<div class="tab-pane active" id="tab_1_11">
+
+													<div class="portlet-body" style="display: block;">
+
+														<table class="table table-striped table-bordered table-advance table-hover">
+
+															<thead>
+
+																<tr>
+
+																	<th>用户ID</th>
+
+																	<th>姓名</th>
+                                                                    
+                                                                    <th>邮箱</th>
+
+																	<th>信息内容</th>
+
+																	<th>提交日期</th>
+
+																	<th>操作</th>
+
+																</tr>
+
+															</thead>
+
+															<tbody>
+                                                                {-if $information-}
+                                                                {-foreach from=$information item=info-}
+																<tr>
+                                                                
+                                                               	    <td>{-$info.MemberId-}</td>
+
+																	<td>{-$info.name-}</td>
+                                                                    
+                                                                   	<td>{-$info.MemberEmail-}</td>
+
+																	<td style="word-break:break-all;width:300px;">{-$info.description|truncate:'50'-}</td>
+
+																	<td>{-$info.gmt_create-}</td>
+
+																	<td><a class="btn mini green" href="index.php?module=information&action=InformationManage&act=infoDetail&info_id={-$info.id-}"><i class="icon-list"></i> 查看</a></td>
+
+																</tr>
+                                                                {-/foreach-}
+                                                                {-else-}
+                                                                    <tr>
+                                                                        <td colspan="4" style="text-align: center;"><font color='red'>没有相关记录</font></td>
+                                                                    </tr>
+                                                                {-/if-}
+
+															</tbody>
+
+														</table>
+                                                        <div class="row-fluid">
+                                                            <div class="pagination">{-$infoPage-}</div>
+                                                        </div>
+
+													</div>
+
+												</div>
+
+												<!--tab-pane-->
+
+											</div>
+
+										</div>
+
+									</div>
+
+									<!--end span9-->
+
+								</div>
+
+								<!--end tab-pane-->
+
+							</div>
+
+						</div>
+
+						<!-- END EXAMPLE TABLE PORTLET-->
+
+					</div>
+                    
+                    <div><input style="float: right;" type="button" value=" 返    回 " onclick="javascript:history.back(-1);" /></div>
+
+				</div>
+
+			</div>
+   </div>
+   
+   <!--分配积分弹出层 start-->
+   <div id="editTask" style="display:none;">
+        <p style="text-align: center;color:#ed6d00;width:100%;"><b>分配积分</b></p>
+        <div class="tappend">
+            <form action='' method='post' id='score_form'>
+                <input type="hidden" value="{-$memberid-}" class="memberId" />
+                <label>操作:</label>
+                <label><input type='radio' name='scoreAction' value='1' checked="checked" />增加</label>
+                <label><input type='radio' name='scoreAction' value='2' />减少</label>
+                <br />
+                <label for='score'>分值:</label><input type='text' id='score' name='score' value='' />*<br />
+                <label for="scoreDesc">备注:</label><textarea class='pop-up' id='scoreDesc' name='scoreDesc' rows='3' /></textarea/><br />100字以内
+                <label>&nbsp;</label><br />
+                <input type='button' id='sbutton' value='提交' />
+            </form>
+        </div>
+   </div>
+   <!--分配积分弹出层 end-->
+   
+{-include file="footer_div.htm"-}
+
+{-include file="footer.htm"-}
+<link href="{-$media_url-}/css/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{-$media_url-}/js/lib/jquery.jeditable.mini.js"></script>
+<script type="text/javascript" src="{-$media_url-}/js/lib/jquery.autocomplete.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$.editable.addInputType('autocomplete', {
+        element : $.editable.types.text.element,
+        plugin : function(settings, original) {
+            $('input', this).autocomplete(settings.autocomplete.data);
+        }
+    });	
+	
+	/*
+	$(".editselectme").editable("http://www.appelsiini.net/projects/jeditable/php/save.php", { 
+        indicator : "<img src='img/indicator.gif'>",
+        type      : "autocomplete",
+        tooltip   : "Click to edit...",
+        onblur    : "submit",
+        autocomplete : {
+           data : ["Aberdeen", "Ada", "Adamsville", "Addyston", "Adelphi", "Adena", "Adrian", "Akron"]
+        }
+    });
+	*/
+	
+    $('.editme').editable('index.php?module=blogger&action=BloggerManage&act=edit&memberid={-$memberid-}', {indicator : "<img src='../media/image/indicator.gif'>",name : 'name', submit : "保存", cancel : '取消'});
+    $('.editselectme').editable('index.php?module=blogger&action=BloggerManage&act=edit&memberid={-$memberid-}', {indicator : "<img src='../media/image/indicator.gif'>",name : 'name', submit : "保存", cancel : '取消' ,data : ' {-$alllcountry_array-} ',type : 'select'});
+});
+
+$(function(){
+    //ajax提交验证
+     $("#sbutton").click(function(){
+         var memId = $(".memberId").val();
+         var score = $("input[name='score']").val();
+         var scoreAction = $("input[name='scoreAction']:checked").val();
+         var scoreDesc = $('#scoreDesc').val();
+
+         if(/^[\s]*$/.test(score)){
+            alert('请填写分配分值！');
+            return false;
+          }
+          if(!(/^\d+$/.test(score)) || score<=0){
+            alert('分值必须为大于0的数字！');
+            return false;
+          }
+
+          if(confirm('确定要提交吗？')){
+                //ajax提交信息并验证
+                $.post(
+                    "index.php?module=blogger&action=BloggerManage&act=ajax_subScore",
+                    {memId:memId, score:score, 'scoreAction':scoreAction, 'desc':scoreDesc},
+                    function(data){
+                        if(data.status==1){
+                            window.parent.mainFrame.location.href = 'index.php?module=blogger&action=BloggerManage&act=memberDetail&isactive=memScore&memberId='+memId;
+                        }else{
+                            alert('提交失败');
+                        }
+                    },
+                    'json'
+                );                                
+          }
+     });
+});
+</script>
+
+<style type="text/css">
+p {
+	width: 500px;
+	float: left;
+}
+#sidebar {
+  width: 0px;
+}
+
+#content {
+  width: 770px;
+}
+
+.editable input[type=submit] {
+  color: #F00;
+  font-weight: bold;
+}
+.editable input[type=button] {
+  color: #0F0;
+  font-weight: bold;
+}
+
+</style>
+</body>
+    
+</html>

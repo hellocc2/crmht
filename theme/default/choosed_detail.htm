@@ -1,0 +1,232 @@
+{-include file="header.htm"-}
+<body>   
+
+			<!-- BEGIN PAGE CONTAINER-->        
+        <div class="mypage-content">
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+
+					<div class="span12">						 
+
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+						<h3 class="page-title">
+
+						</h3>
+
+						<ul class="breadcrumb">
+
+							<li>
+
+								<i class="icon-home"></i>
+
+								<a href="">首页</a> 
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li>
+                                
+                                <a href="index.php?module=choosed&action=ChoosedManage">选择商品</a>
+                            
+                                <i class="icon-angle-right"></i>
+                                
+                            </li>
+                            
+                            <li><a href="#">选择详情</a></li>
+
+						</ul>
+
+						<!-- END PAGE TITLE & BREADCRUMB-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid profile">
+
+					<div class="span12">
+                    
+                        <div class="tabbable tabbable-custom tabbable-full-width">
+                    
+                            <div>
+
+					           <div class="tab-pane profile-classic row-fluid" id="tab_1_2">									
+										<span>用户ID:</span> {-$choosed_detail.memberId-} &nbsp;&nbsp;
+										<span>姓名:</span> {-$choosed_detail.memberName-}  &nbsp;&nbsp;
+                                       	<span>提交日期:</span> {-$choosed_detail.subDate-} &nbsp;&nbsp;
+                                        <span>审核状态:</span> <span id="stateStatus">{-$choosedState[$choosed_detail.state]-}{-if $choosed_detail.judgeContent-}<span style="color:#777;;">(备注:{-$choosed_detail.judgeContent-})</span>{-/if-}</span>
+                                        <span><a href="index.php?module=blogger&action=BloggerManage&act=memberDetail&memberId={-$choosed_detail.memberId-}" target="_blank">查看用户详情</a></span>
+								</div><hr />
+                                {-if $choosed_detail.list-}
+                                {-foreach from=$choosed_detail.list item=detail-}
+                                <div class="tab-pane profile-classic row-fluid" id="tab_1_2">
+                                    <div style="float: left;">
+                                        <img height="300px" width="200px;" src="{-$detail.product_img-}"/>
+                                    </div>
+                                    <div style="float: left;padding-left:100px;">
+                                   	    
+                                        <ul class="unstyled">
+
+										  <li><span>Item Code:</span> {-$detail.itemcode-}</li><br />
+                                          
+                                          <li><span>所属分类:</span> {-$detail.categoryName-}</li><br />
+                                          
+                                          <li><span>积分:</span> {-$detail.credits-}</li><br />
+                                          {-foreach from=$detail.color item=pcolor-}
+                                          <li><span>{-$pcolor.propertyName-}:</span>  {-$pcolor.value-}</li><br />
+                                          {-/foreach-}
+                                          <li><span>Size:</span>  {-$detail.size-}</li>
+                                        
+                                        </ul>
+                                        
+                                    </div>
+                                    {-if $detail.properties-}
+                                    <div style="float: right;padding-right:200px;">
+                                   	    
+                                        <ul class="unstyled">
+                                        
+                                        {-foreach from=$detail.properties item=pro-}
+										  <li><span>{-$pro.propertiesName-}:</span> {-$pro.value-} cm</li><br />
+                                        {-/foreach-}
+                                        </ul>
+                                        
+                                    </div>
+                                    {-/if-}
+                                    
+                                    {-if $detail.customProperty-}
+                                    <div style="float: right;padding-right:200px;">
+                                   	    
+                                        <ul class="unstyled">
+                                        
+                                        {-foreach from=$detail.customProperty item=cus-}
+										  <li><span>{-$cus.propertiesName-}:</span> {-$cus.value-} cm</li><br />
+                                        {-/foreach-}
+                                        </ul>
+                                        
+                                    </div>
+                                    {-/if-}
+                                    
+                                    {-if $detail.customSizeProperty-}
+                                    <div style="float: right;padding-right:200px;">
+                                   	    
+                                        <ul class="unstyled">
+                                        
+                                        {-foreach from=$detail.customSizeProperty item=sizep-}
+										  <li><span>{-$sizep.categoryName-}:</span> 
+                                          {-foreach from=$sizep.customName item=val-}
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;{-$val-}</li>
+                                          {-/foreach-}
+                                          </li><br />
+                                        {-/foreach-}
+                                        </ul>
+                                        
+                                    </div>
+                                    {-/if-}
+                                </div>
+                                <hr />
+                                {-/foreach-}
+                                {-/if-}
+                                
+                                <div>
+                                    <a style="float: right;margin-right: 20px;" href="javascript:;" onclick="javascript:history.back(-1);"><button class="btn black"> 返    回 </button></a>
+                                    {-if $choosed_detail.state==0-}
+                                    <div class="statButton">
+                                        <a style="float: right;margin-right: 20px;" class="thickbox" href="#TB_inline?&width=400&height=198&inlineId=refuseRequest"><button class="btn green">不通过</button></a>
+                                        <a style="float: right;margin-right: 20px;" class="passBtn" href="javascript:;"><button class="btn green">审核通过</button></a>
+                                    </div>
+                                    {-/if-}                                    
+                                </div>
+    
+						      </div>
+                        
+                        </div>
+
+					</div>
+
+				</div>
+
+			</div>
+   </div>
+
+    <!-- 拒绝通过审核 弹出层 start-->
+    <div id="refuseRequest" style="display:none;">
+        <p style="text-align: center;color:#ed6d00;"><b>审核不通过</b></p>
+        <div class="tappend">
+            <form action='' method='post' id='refuse_desc_form'>
+                <input type="hidden" value="{-$memberid-}" class="memberId" />
+                <label for="desc">备注:</label>
+                <textarea class='pop-up' id='desc' name='desc' rows='3' cols="50" style="width:360px;" /></textarea/>
+                <br/>
+                <input type="button" style="float:right;" class="btn black" id='refuseSubmit' value="提交" />
+            </form>
+        </div>
+    </div>
+    <!--拒绝通过审核 弹出层 end-->
+
+{-include file="footer_div.htm"-}
+
+{-include file="footer.htm"-}
+<script type="text/javascript">
+    $(function(){
+        $("#refuseSubmit").click(function(){
+            var orderId = {-$orderid-};
+            var desc = $('#desc').val();
+            var re=/^\s*$/im;
+            if(re.test(desc)) {
+                alert('请输入备注');
+                return false;
+            }
+
+            if(confirm("确认进行操作吗？")){
+                $.post(
+                    "index.php?module=choosed&action=ChoosedManage&act=updateState",
+                    {oid:orderId, state:'2', 'desc':desc},
+                    function(data){
+                        if(data.status=='1'){
+                            window.parent.mainFrame.location='index.php?module=choosed&action=ChoosedManage';
+                            alert('操作成功');
+                            $(".statButton").hide();
+                            $("#stateStatus").html('审核不通过');
+                        }else{
+                            alert('失败');
+                        }
+                    },
+                    "json"
+                );
+            }
+        });
+
+        $(".passBtn").click(function(){
+             var orderId = {-$orderid-};
+             if(confirm("确认进行操作吗？")){             
+                 $.post(
+                    "index.php?module=choosed&action=ChoosedManage&act=updateState",
+                    {oid:orderId,state:'1'},
+                    function(data){
+                        if(data.status=='1'){
+                            window.parent.mainFrame.location='index.php?module=choosed&action=ChoosedManage';
+                            alert('操作成功');
+                            $(".statButton").hide();
+                            $("#stateStatus").html('审核通过');
+                        }else{
+                            alert('失败');
+                        }
+                    },
+                    "json"
+                );
+            }
+        })
+    })
+</script>
+
+</body>
+    
+</html>
