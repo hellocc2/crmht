@@ -11,87 +11,55 @@ use Helper\RequestUtil as R;
 function smarty_function_html_siderbar($params, &$smarty)
 {
 	$action=R::getParams ('action');
+	$root_url=$smarty->_tpl_vars['root_url'];
+	$actioin=strtolower($action);
+	
+	
 	switch($action){
-		case 'Summary':
-			$Summary='class="active"';
+		case 'dashboard':
+			$chart='class="active"';
 		break;
-		case 'Thing':
-			$Thing='class="active"';
+		case 'user':
+			$user='class="active"';
+		break;	
+		case 'check':
+			$check='class="active"';
 		break;
-		case 'Plans':
-			$Plans='class="active"';
-		break;
-		case 'History':
-			$History='class="active"';
-		break;
-		case 'Chart':
-			$Chart='class="active"';
-		break;
-		case 'Account':
-			$Account='class="active"';
-		break;
+		case 'data':
+			$data='class="active"';
+		break;	
 		default:
-			$News='class="active"';		
+			$news='class="active"';		
 	}
 
     $html='';
-	$html='<ul id="main-nav" class="nav nav-tabs nav-stacked">
-	
-					<li '.$News.'>
-						<a href="index.php?module=index&action=Index">
-							<i class="icon-home"></i>
-							重大新闻 		
-						</a>
-					</li>
+	$html='<div id="mws-navigation">
+            	<ul>
+                	<li class="active"><a href="'.$root_url.'operate/dashboard.html" class="mws-i-24 i-home">系统管理</a>
 					
-					<li '.$Summary.'>
-						<a href="index.php?module=operate&action=Summary">
-							<i class="icon-home"></i>
-							经验总结 		
-						</a>
-					</li>
+						<ul>
+							<li><a href="'.$root_url.'admin/index.html">管理员信息</a></li>
+							<li><a href="'.$root_url.'admin/power.html">权限资源管理</a></li>
+							<li><a href="'.$root_url.'admin/role.html">角色管理</a></li>							
+                        	<li><a href="'.$root_url.'admin/daily.html">日志管理</a></li>
+							<li><a href="'.$root_url.'admin/plan.html">轮播图管理</a></li>
+							<li><a href="'.$root_url.'admin/aboutus.html">关于我们</a></li>
+							<li><a href="'.$root_url.'admin/agreement.html">用户使用协议</a></li>
+							<li><a href="'.$root_url.'admin/privacy.html">隐私政策</a></li>
+                        </ul>
 					
-					<li '.$Thing.'>
-						<a href="index.php?module=operate&action=Thing">
-							<i class="icon-pushpin"></i>
-							事件分析	
-						</a>
 					</li>
-					
-					<li '.$Plans.'>
-						<a href="index.php?module=operate&action=Plans">
-							<i class="icon-th-list"></i>
-							操单情况		
-						</a>
-					</li>
-					
-					<li '.$History.'>
-						<a href="index.php?module=operate&action=History">
-							<i class="icon-th-large"></i>
-							行情回顾	
-						</a>
-					</li>
-					
-					<li '.$Chart.'>
-						<a href="index.php?module=operate&action=Chart">
-							<i class="icon-signal"></i>
-							图表统计	
-						</a>
-					</li>
-					
-					<li '.$Account.'>
-						<a href="index.php?module=member&action=Account">
-							<i class="icon-user"></i>
-							用户信息							
-						</a>
-					</li>';
-	if($action=='Loginout'){
-		$html.='<li ><a href="index.php?module=member&action=Login"><i class="icon-lock"></i>登入</a></li>';
-	}else{
-		$html.='<li ><a href="index.php?module=member&action=Login"><i class="icon-lock"></i>登出</a></li>';
-	}			
+                	<li '.$user.'><a href="'.$root_url.'operate/user.html" class="mws-i-24 i-file-cabinet">用户管理</a></li>
+					<li '.$check.'><a href="'.$root_url.'operate/check.html" class="mws-i-24 i-cog">审核管理</a></li>
+                	<li '.$data.'><a href="'.$root_url.'operate/data.html" class="mws-i-24 i-chart">基础数据</a></li>
+					<li '.$send.'><a href="'.$root_url.'operate/semd.html" class="mws-i-24 i-alert-2">发布管理</a></li>
+					<li '.$accessory.'><a href="'.$root_url.'operate/accessory.html" class="mws-i-24 i-pacman">配件与维护管理</a></li>
+					<li '.$product.'><a href="'.$root_url.'operate/product.html" class="mws-i-24 i-list">商品管理</a></li>
+                	
+                </ul>
+            </div>';	
 							
-	$html.='</ul>';
+	
 	return $html;
 
 }

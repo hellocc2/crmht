@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2015-12-03 17:21:08
+<?php /* Smarty version 2.6.18, created on 2019-07-10 10:20:00
          compiled from operate_thing.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headnav', 'operate_thing.html', 35, false),array('function', 'html_account', 'operate_thing.html', 52, false),array('function', 'html_siderbar', 'operate_thing.html', 56, false),)), $this); ?>
@@ -115,7 +115,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									终点时间
 								</th>
 								<th>
-									行情幅度
+									SDFSDFSDF
 								</th>
 								<th>
 									时间间隔
@@ -131,7 +131,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 							<tbody>
 							<tr>
 								<td width="210px">
-									美联储
+									2123123123
 								</td>
 								<td>
 									45
@@ -146,7 +146,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									23:00
 								</td>
 								<td>
-									2美元
+									232
 								</td>
 								<td>
 									90分钟
@@ -160,7 +160,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 							</tr>
 								<tr>
 								<td width="210px">
-									美联储
+									23123
 								</td>
 								<td>
 									45
@@ -175,7 +175,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									23:00
 								</td>
 								<td>
-									2美元
+									123213
 								</td>
 								<td>
 									90分钟
@@ -189,7 +189,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 							</tr>
 								<tr>
 								<td width="210px">
-									美联储
+									123123
 								</td>
 								<td>
 									45
@@ -204,7 +204,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									23:00
 								</td>
 								<td>
-									2美元
+									12312
 								</td>
 								<td>
 									90分钟

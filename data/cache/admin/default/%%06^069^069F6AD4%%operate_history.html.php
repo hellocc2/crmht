@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2015-12-03 17:21:13
+<?php /* Smarty version 2.6.18, created on 2019-07-10 10:23:36
          compiled from operate_history.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headnav', 'operate_history.html', 9, false),array('function', 'html_account', 'operate_history.html', 25, false),array('function', 'html_siderbar', 'operate_history.html', 29, false),)), $this); ?>
@@ -63,12 +63,12 @@ unset($_smarty_tpl_vars);
 							<input type="text" class="form-control" name="ftime" placeholder="起始日期">——
 							<input type="text" class="form-control" name="ftimend" placeholder="结束日期">
 							<select class="form-control" style="width:90px">
-							  <option value="1">开盘点</option>
-							  <option value="2">结算点</option>
-							  <option value="3">最高点</option>
-							  <option value="4">最低点</option>
-							  <option value="5">次高点</option>
-							  <option value="6">次低点</option>
+							  <option value="1">erte</option>
+							  <option value="2">ebb</option>
+							  <option value="3">nnnn</option>
+							  <option value="4">ddd</option>
+							  <option value="5">fff</option>
+							  <option value="6">gggg</option>
 							</select>
 						    <button type="submit" class="btn btn-default">查找</button>
 							<button type="button" class="btn btn-default"><a href="/index.php?module=history&action=Add">添加</a></button>
@@ -91,19 +91,19 @@ unset($_smarty_tpl_vars);
 									方向
 								</th>
 								<th>
-									点位
+									sdfs
 								</th>
 								<th>
-									幅度
+									sdfdsf
 								</th>
 								<th>
 									备注
 								</th>
 								<th>
-									开盘
+									sdf
 								</th>
 								<th>
-									结算
+									sdfs
 								</th>
 								<th>
 									事件
@@ -128,13 +128,13 @@ unset($_smarty_tpl_vars);
 									空
 								</td>
 								<td>
-									45.4
+									sdfs
 								</td>
 								<td>
-									2美元
+									sdf
 								</td>
 								<td>
-									最高
+									sdfs
 								</td>
 								<td>
 									否
@@ -160,25 +160,25 @@ unset($_smarty_tpl_vars);
 									9:00
 								</td>
 								<td>
-									空
+									sdfs
 								</td>
 								<td>
-									45.4
+									sdf
 								</td>
 								<td>
-									2美元
+									dsfsd
 								</td>
 								<td>
-									次高
-								</td>
-								<td>
-									否
+									fsdfs
 								</td>
 								<td>
 									否
 								</td>
 								<td>
-									EIA
+									否
+								</td>
+								<td>
+									dgdfg
 								</td>
 								<td>
 									编辑| 删除

@@ -1,6 +1,6 @@
 <?php
 namespace Lib;
-use Helper\String;
+use Helper\StringF;
 
 class Log{
 	protected static $errorConstantMap = array(1 => 'E_ERROR',2 => 'E_WARNING',

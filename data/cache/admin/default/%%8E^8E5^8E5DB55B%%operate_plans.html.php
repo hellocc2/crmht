@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2015-12-03 17:21:12
+<?php /* Smarty version 2.6.18, created on 2019-07-10 10:27:01
          compiled from operate_plans.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headnav', 'operate_plans.html', 35, false),array('function', 'html_account', 'operate_plans.html', 51, false),array('function', 'html_siderbar', 'operate_plans.html', 55, false),)), $this); ?>
@@ -111,19 +111,19 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									方向
 								</th>
 								<th>
-									点位
+									sdf
 								</th>
 								<th>
-									仓位
+									sdf
 								</th>
 								<th>
-									盈亏
+									sdf
 								</th>
 								<th>
-									幅度
+									sfd
 								</th>
 								<th>
-									金额
+									sdf
 								</th>
 							</tr>
 							</thead>
@@ -139,22 +139,22 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									9:00
 								</td>
 								<td>
-									空
+									dsf
 								</td>
 								<td>
-									45.4
+									sdf
 								</td>
 								<td>
-									2手
+									2
 								</td>
 								<td>
-									盈
+									sdf
 								</td>
 								<td>
-									1美元
+									sdf
 								</td>
 								<td>
-									2000人民币
+									2000
 								</td>
 							</tr>
 							<tr>
@@ -168,22 +168,22 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_headna
 									9:00
 								</td>
 								<td>
-									空
+									sdf
 								</td>
 								<td>
 									45.4
 								</td>
 								<td>
-									2手
+									sdf
 								</td>
 								<td>
-									盈
+									sdf
 								</td>
 								<td>
-									1美元
+									sdf
 								</td>
 								<td>
-									2000人民币
+									2000
 								</td>
 							</tr>
 							</tbody>

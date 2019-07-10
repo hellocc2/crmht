@@ -6,7 +6,8 @@ class History{
 	private $db;
 	const PAGENUM =20;
 	function __construct(){
-		 $this->db =\Lib\common\Db::get_db ();		
+		 $this->db =\Lib\common\Db::get_db ();
+ 
 	}
 	//=======================获取数据start=====================
 	/**
