@@ -14,6 +14,6 @@ class Left extends \Lib\common\Application {
             $isSuper = false;
         }
         $tpl->assign('isSuper',$isSuper);
-		$tpl->display ( 'left.htm' );
+		$tpl->display ( 'index_left.htm' );
 	}
 }
