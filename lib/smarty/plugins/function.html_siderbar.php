@@ -49,7 +49,12 @@ function smarty_function_html_siderbar($params, &$smarty)
                         </ul>
 					
 					</li>
-                	<li '.$user.'><a href="'.$root_url.'operate/user.html" class="mws-i-24 i-file-cabinet">用户管理</a></li>
+                	<li '.$user.'><a href="'.$root_url.'operate/user.html" class="mws-i-24 i-file-cabinet">用户管理</a>
+						<ul>
+							<li><a href="'.$root_url.'user/index.html">用户管理</a></li>
+							<li><a href="'.$root_url.'user/rebate.html">邀请返利</a></li>							
+                        </ul>
+					</li>
 					<li '.$check.'><a href="'.$root_url.'operate/check.html" class="mws-i-24 i-cog">审核管理</a></li>
                 	<li '.$data.'><a href="'.$root_url.'operate/data.html" class="mws-i-24 i-chart">基础数据</a></li>
 					<li '.$send.'><a href="'.$root_url.'operate/semd.html" class="mws-i-24 i-alert-2">发布管理</a></li>

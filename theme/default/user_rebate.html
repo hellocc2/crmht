@@ -58,7 +58,7 @@
 <script type="text/javascript" src="{-$media-}/js/demo.js"></script>
 <script type="text/javascript" src="{-$media-}/js/themer.js"></script>
 
-<title>MWS Admin - Table</title>
+<title>MWS Admin - Form Layouts</title>
 
 </head>
 
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-
+    
 	<div id="mws-header" class="clearfix">
     	<div id="mws-logo-container">
         	<div id="mws-logo-wrap">
@@ -240,90 +240,91 @@
 		<div id="mws-sidebar-stitch"></div>
 		<div id="mws-sidebar-bg"></div>
         <div id="mws-sidebar">
-        	<div id="mws-searchbox" class="mws-inset">
-            	<form action="http://www.malijuwebshop.com/themes/mws-admin/table.html">
-                	<input type="text" class="mws-search-input" />
-                    <input type="submit" class="mws-search-submit" />
-                </form>
-            </div>
-            {-html_siderbar-}
+        	{-html_siderbar-}
         </div>
         
         <div id="mws-container" class="clearfix">
             <div class="container">
-				<div>				
-					<a href="{-$root_url-}admin/add.html"><img src="{-$media-}/css/icons/32/group_add.png">添加管理员</a>
-                </div>
+            
+            	
+                
             	<div class="mws-panel grid_8">
                 	<div class="mws-panel-header">
-                    	<span class="mws-i-24 i-table-1 ">管理员管理</span>
+                    	<span class="mws-i-24 i-list">用户编辑</span>
                     </div>
                     <div class="mws-panel-body">
-                        <table class="mws-datatable-fn mws-table">
-                            <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th>用户名</th>
-                                    <th>状态</th>
-                                    <th>创建时间</th>
-                                    <th>更新时间</th>
-									<th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 4.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">4</td>
-                                    <td class="center">X</td>
-									<td class="center">
-									<a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a>
-									</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 5.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-									<td class="center">
-									<a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a></td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 5.5</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5.5</td>
-                                    <td class="center">A</td>
-									<td class="center">
-									<a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a></td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 6</td>
-                                    <td>Win 98+</td>
-                                    <td class="center">6</td>
-                                    <td class="center">A</td>
-									<td class="center"><a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a></td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
-                    </div>
+                    	<form class="mws-form" action="{-$root_url-}admin/edit.html">
+						<input type="hidden" name="act" value="edit"/>
+                    		<div class="mws-form-inline">
+                    			<div class="mws-form-row">
+                    				<label>Small text field</label>
+                    				<div class="mws-form-item small">
+                    					<input type="text" class="mws-textinput" />
+                    				</div>
+                    			</div>
+                    			<div class="mws-form-row">
+                    				<label>Medium text field</label>
+                    				<div class="mws-form-item medium">
+                    					<input type="text" class="mws-textinput" />
+                    				</div>
+                    			</div>
+                    			<div class="mws-form-row">
+                    				<label>Large text field</label>
+                    				<div class="mws-form-item large">
+                    					<input type="text" class="mws-textinput" />
+                    				</div>
+                    			</div>
+                    			<div class="mws-form-row">
+                    				<label>Textarea</label>
+                    				<div class="mws-form-item large">
+                    					<textarea rows="100%" cols="100%"></textarea>
+                    				</div>
+                    			</div>
+                    			<div class="mws-form-row">
+                    				<label>Dropdown List</label>
+                    				<div class="mws-form-item small">
+                    					<select>
+                    						<option>Option 1</option>
+                    						<option>Option 3</option>
+                    						<option>Option 4</option>
+                    						<option>Option 5</option>
+                    					</select>
+                    				</div>
+                    			</div>
+                    			<div class="mws-form-row">
+                    				<label>Checkboxes</label>
+                    				<div class="mws-form-item clearfix">
+                    					<ul class="mws-form-list inline">
+                    						<li><input type="checkbox" /> <label>Checkbox 1</label></li>
+                    						<li><input type="checkbox" /> <label>Checkbox 2</label></li>
+                    						<li><input type="checkbox" /> <label>Checkbox 3</label></li>
+                    						<li><input type="checkbox" /> <label>Checkbox 4</label></li>
+                    					</ul>
+                    				</div>
+                    			</div>
+                    			<div class="mws-form-row">
+                    				<label>Radio Buttons</label>
+                    				<div class="mws-form-item clearfix">
+                    					<ul class="mws-form-list inline">
+                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
+                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
+                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
+                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
+                    					</ul>
+                    				</div>
+                    			</div>
+                    		</div>
+                    		<div class="mws-button-row">                    		
+                    			<input type="submit" value="提交" class="mws-button black" />                    			
+                    		</div>
+                    	</form>
+                    </div>    	
                 </div>
+            	
             </div>
             
             <div id="mws-footer">
-            	Copyright &copy; 
+            	Copyright &copy; </a>
             </div>
             
         </div>

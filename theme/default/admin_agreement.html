@@ -54,11 +54,19 @@
 <script type="text/javascript" src="{-$media-}/plugins/spinner/ui.spinner.js"></script>
 <script type="text/javascript" src="{-$media-}/js/jquery-ui.js"></script>
 
+<script type="text/javascript" src="{-$media-}/plugins/elrte/js/elrte.min.js"></script>
+<script type="text/javascript" src="{-$media-}/plugins/elfinder/js/elfinder.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{-$media-}/plugins/elrte/css/elrte.full.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{-$media-}/plugins/elfinder/css/elfinder.css" media="screen" />
+
 <script type="text/javascript" src="{-$media-}/js/mws.js"></script>
 <script type="text/javascript" src="{-$media-}/js/demo.js"></script>
 <script type="text/javascript" src="{-$media-}/js/themer.js"></script>
 
-<title>MWS Admin - Table</title>
+<script type="text/javascript" src="{-$media-}/js/demo.formelements.js"></script>
+
+<title>MWS Admin - Form Elements</title>
 
 </head>
 
@@ -99,7 +107,7 @@
             </div>
         </div>
     </div>
-
+    
 	<div id="mws-header" class="clearfix">
     	<div id="mws-logo-container">
         	<div id="mws-logo-wrap">
@@ -241,89 +249,42 @@
 		<div id="mws-sidebar-bg"></div>
         <div id="mws-sidebar">
         	<div id="mws-searchbox" class="mws-inset">
-            	<form action="http://www.malijuwebshop.com/themes/mws-admin/table.html">
+            	<form action="http://www.malijuwebshop.com/themes/mws-admin/form_elements.html">
                 	<input type="text" class="mws-search-input" />
                     <input type="submit" class="mws-search-submit" />
                 </form>
             </div>
-            {-html_siderbar-}
+           {-html_siderbar-}
         </div>
         
         <div id="mws-container" class="clearfix">
             <div class="container">
-				<div>				
-					<a href="{-$root_url-}admin/add.html"><img src="{-$media-}/css/icons/32/group_add.png">添加管理员</a>
-                </div>
+            	
+                
             	<div class="mws-panel grid_8">
                 	<div class="mws-panel-header">
-                    	<span class="mws-i-24 i-table-1 ">用户管理</span>
+                    	<span class="mws-i-24 i-text-styling-3">用户使用协议</span>
                     </div>
                     <div class="mws-panel-body">
-                        <table class="mws-datatable-fn mws-table">
-                            <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th>用户名</th>
-                                    <th>状态</th>
-                                    <th>创建时间</th>
-                                    <th>更新时间</th>
-									<th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 4.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">4</td>
-                                    <td class="center">X</td>
-									<td class="center">
-									<a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a>
-									</td>
-                                </tr>
-                                <tr class="gradeC">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 5.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-									<td class="center">
-									<a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a></td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 5.5</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5.5</td>
-                                    <td class="center">A</td>
-									<td class="center">
-									<a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a></td>
-                                </tr>
-                                <tr class="gradeA">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 6</td>
-                                    <td>Win 98+</td>
-                                    <td class="center">6</td>
-                                    <td class="center">A</td>
-									<td class="center"><a href="{-$root_url-}admin/edit.html"><img src="{-$media-}/css/icons/16/edit.png">编辑</a>
-									<a href="{-$root_url-}admin/del.html"><img src="{-$media-}/css/icons/16/cross.png">删除</a></td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
+                    	<form class="mws-form" action="http://www.malijuwebshop.com/themes/mws-admin/form_elements.html">
+                        	<div class="mws-form-row">
+                            	
+                                <div class="mws-form-item">
+                                	<textarea id="elrte" cols="auto" rows="auto"></textarea>
+                                </div>
+                            </div>
+                            <div class="mws-button-row">
+                            	<input type="submit" value="提交" class="mws-button red" />
+                            </div>
+                        </form>
                     </div>
                 </div>
+                
+            	
             </div>
             
             <div id="mws-footer">
-            	Copyright &copy; 
+            	Copyright &copy; </a>
             </div>
             
         </div>
