@@ -58,7 +58,7 @@
 <script type="text/javascript" src="{-$media-}/js/demo.js"></script>
 <script type="text/javascript" src="{-$media-}/js/themer.js"></script>
 
-<title>MWS Admin - Form Layouts</title>
+<title>MWS Admin - Widgets</title>
 
 </head>
 
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    
+
 	<div id="mws-header" class="clearfix">
     	<div id="mws-logo-container">
         	<div id="mws-logo-wrap">
@@ -240,93 +240,122 @@
 		<div id="mws-sidebar-stitch"></div>
 		<div id="mws-sidebar-bg"></div>
         <div id="mws-sidebar">
-        	{-html_siderbar-}
+        	<div id="mws-searchbox" class="mws-inset">
+            	<form action="http://www.malijuwebshop.com/themes/mws-admin/widgets.html">
+                	<input type="text" class="mws-search-input" />
+                    <input type="submit" class="mws-search-submit" />
+                </form>
+            </div>
+            {-html_siderbar-}
         </div>
         
         <div id="mws-container" class="clearfix">
             <div class="container">
-            
-            	
-                
-            	<div class="mws-panel grid_8">
-                	<div class="mws-panel-header">
-                    	<span class="mws-i-24 i-list">用户编辑</span>
+               <div class="clear"></div>
+            	<div class="mws-panel grid_8 mws-collapsible">                	
+                   <div class="mws-panel-header">
+                    	<span class="mws-i-24 i-month-calendar">高级查询</span>
                     </div>
                     <div class="mws-panel-body">
-                    	<form class="mws-form" action="{-$root_url-}admin/edit.html">
-						<input type="hidden" name="act" value="edit"/>
-                    		<div class="mws-form-inline">
-                    			<div class="mws-form-row">
-                    				<label>Small text field</label>
-                    				<div class="mws-form-item small">
-                    					<input type="text" class="mws-textinput" />
-                    				</div>
-                    			</div>
-                    			<div class="mws-form-row">
-                    				<label>Medium text field</label>
-                    				<div class="mws-form-item medium">
-                    					<input type="text" class="mws-textinput" />
-                    				</div>
-                    			</div>
-                    			<div class="mws-form-row">
-                    				<label>Large text field</label>
-                    				<div class="mws-form-item large">
-                    					<input type="text" class="mws-textinput" />
-                    				</div>
-                    			</div>
-                    			<div class="mws-form-row">
-                    				<label>Textarea</label>
-                    				<div class="mws-form-item large">
-                    					<textarea rows="100%" cols="100%"></textarea>
-                    				</div>
-                    			</div>
-                    			<div class="mws-form-row">
-                    				<label>Dropdown List</label>
-                    				<div class="mws-form-item small">
-                    					<select>
-                    						<option>Option 1</option>
-                    						<option>Option 3</option>
-                    						<option>Option 4</option>
-                    						<option>Option 5</option>
-                    					</select>
-                    				</div>
-                    			</div>
-                    			<div class="mws-form-row">
-                    				<label>Checkboxes</label>
-                    				<div class="mws-form-item clearfix">
-                    					<ul class="mws-form-list inline">
-                    						<li><input type="checkbox" /> <label>Checkbox 1</label></li>
-                    						<li><input type="checkbox" /> <label>Checkbox 2</label></li>
-                    						<li><input type="checkbox" /> <label>Checkbox 3</label></li>
-                    						<li><input type="checkbox" /> <label>Checkbox 4</label></li>
-                    					</ul>
-                    				</div>
-                    			</div>
-                    			<div class="mws-form-row">
-                    				<label>Radio Buttons</label>
-                    				<div class="mws-form-item clearfix">
-                    					<ul class="mws-form-list inline">
-                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
-                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
-                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
-                    						<li><input name="sex" type="radio" /> <label>Radio 1</label></li>
-                    					</ul>
-                    				</div>
-                    			</div>
-                    		</div>
-                    		<div class="mws-button-row">                    		
-                    			<input type="submit" value="提交" class="mws-button black" />                    			
-                    		</div>
-                    	</form>
-                    </div>    	
+                        <form class="mws-form" action="http://www.malijuwebshop.com/themes/mws-admin/widgets.html">
+                        	<div class="mws-form-inline">
+                               
+                                
+                                <div class="mws-form-row">
+                                	<label>手机号码</label>
+                                	<div class="mws-form-item large">
+                                    	<input type="text" class="mws-textinput">
+                                    </div>
+                                </div>
+                                
+                                
+								<div class="mws-button-row">
+									<input type="submit" value="查询" class="mws-button red">
+								</div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            	
+				
+            	<div class="mws-panel grid_8">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1 ">用户管理</span>
+                    </div>
+                    <div class="mws-panel-body">
+                        <table class="mws-datatable-fn mws-table">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>被邀请人手机号</th>
+                                    <th>被邀请人</th>
+                                    <th>被邀请时间</th>
+                                    <th>邀请人</th>
+									<th>是否返利</th>
+									<th>返利金额</th>
+									
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="gradeX">
+                                    <td>Trident</td>
+                                    <td>Internet
+                                         Explorer 4.0</td>
+                                    <td>Win 95+</td>
+                                    <td class="center">4</td>
+                                    <td class="center">X</td>
+									 <td class="center">4</td>
+                                    <td class="center">X</td>
+									
+									
+                                </tr>
+                                <tr class="gradeC">
+                                    <td>Trident</td>
+                                    <td>Internet
+                                         Explorer 5.0</td>
+                                    <td>Win 95+</td>
+                                    <td class="center">5</td>
+                                    <td class="center">C</td>
+									<td class="center">5</td>
+                                    <td class="center">C</td>
+																	
+                                 </tr> 
+                                <tr class="gradeA">
+                                    <td>Trident</td>
+                                    <td>Internet
+                                         Explorer 5.5</td>
+                                    <td>Win 95+</td>
+                                    <td class="center">5.5</td>
+                                    <td class="center">A</td>
+									<td class="center">5</td>
+                                    <td class="center">C</td>
+									
+                                </tr>
+                                <tr class="gradeA">
+                                    <td>Trident</td>
+                                    <td>Internet
+                                         Explorer 6</td>
+                                    <td>Win 98+</td>
+                                    <td class="center">6</td>
+                                    <td class="center">A</td>
+									<td class="center">5</td>
+                                    <td class="center">C</td>
+									
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             
             <div id="mws-footer">
-            	Copyright &copy; </a>
+            	Copyright &copy; 
+            </div>
             </div>
             
+            <div id="mws-footer">
+            	Copyright &copy; 2014.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+            </div>
         </div>
     </div>
 
